@@ -21,6 +21,16 @@
             justify-content: space-between;
             align-items: center;
             transition: background-color 0.3s, color 0.3s;
+            position: relative;
+        }
+
+        h1 {
+            margin-left: 1rem;
+            transition: color 0.3s;
+        }
+
+        nav {
+            margin: 0 auto;
         }
 
         nav ul {
@@ -28,7 +38,7 @@
             padding: 0;
             display: flex;
             justify-content: center;
-            margin: 0 auto;
+            margin: 0;
         }
 
         nav ul li {
@@ -143,6 +153,7 @@
             document.body.style.backgroundColor = rgbToCss(bgColor);
             document.body.style.color = rgbToCss(textColor);
             document.querySelector('header').style.backgroundColor = rgbToCss(headerColor);
+            document.querySelector('h1').style.color = rgbToCss(textColor);
             document.querySelectorAll('nav ul li a').forEach(link => {
                 link.style.color = rgbToCss(textColor);
             });
