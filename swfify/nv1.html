@@ -8,8 +8,6 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            color: #333;
-            background-color: #f4f4f4;
             margin: 0;
             padding: 0;
             transition: background-color 0.3s, color 0.3s;
@@ -39,7 +37,7 @@
             padding: 0;
             display: flex;
             justify-content: center;
-            margin: 0;
+            margin: 0 auto;
         }
 
         nav ul li {
@@ -59,23 +57,23 @@
         .slider-container {
             position: absolute;
             top: 1rem;
-            left: 1rem;
-            width: 200px;
+            right: 1rem;
+            width: 100px;
         }
 
         .slider {
             width: 100%;
-            height: 25px;
+            height: 20px;
             background: linear-gradient(to right, #f4f4f4, #1a1a2e);
-            border-radius: 12.5px;
+            border-radius: 10px;
             -webkit-appearance: none;
             appearance: none;
             cursor: pointer;
         }
 
         .slider::-webkit-slider-thumb {
-            width: 30px;
-            height: 30px;
+            width: 25px;
+            height: 25px;
             background-color: #fff;
             border-radius: 50%;
             border: 2px solid #ccc;
@@ -84,8 +82,8 @@
         }
 
         .slider::-moz-range-thumb {
-            width: 30px;
-            height: 30px;
+            width: 25px;
+            height: 25px;
             background-color: #fff;
             border-radius: 50%;
             border: 2px solid #ccc;
@@ -135,11 +133,17 @@
         modeSlider.addEventListener('input', () => {
             const value = modeSlider.value;
             const darkValue = value / 100;
-            document.body.style.backgroundColor = `rgba(26, 26, 46, ${darkValue})`;
-            document.body.style.color = darkValue > 0.5 ? '#eaeaea' : '#333';
-            document.querySelector('header').style.backgroundColor = `rgba(26, 26, 46, ${darkValue})`;
+
+            const bodyBg = `rgba(26, 26, 46, ${darkValue})`;
+            const bodyColor = darkValue > 0.5 ? '#eaeaea' : '#333';
+            const headerBg = `rgba(26, 26, 46, ${darkValue})`;
+            const linkColor = darkValue > 0.5 ? '#f4f4f4' : '#eaeaea';
+
+            document.body.style.backgroundColor = bodyBg;
+            document.body.style.color = bodyColor;
+            document.querySelector('header').style.backgroundColor = headerBg;
             document.querySelectorAll('nav ul li a').forEach(link => {
-                link.style.color = darkValue > 0.5 ? '#f4f4f4' : '#eaeaea';
+                link.style.color = linkColor;
             });
         });
 
