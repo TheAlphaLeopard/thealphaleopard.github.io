@@ -13,11 +13,6 @@
             transition: background-color 0.3s, color 0.3s;
         }
 
-        .dark-mode {
-            background-color: #1a1a2e;
-            color: #eaeaea;
-        }
-
         header {
             background-color: #1a1a2e;
             color: #eaeaea;
@@ -26,10 +21,6 @@
             justify-content: space-between;
             align-items: center;
             transition: background-color 0.3s, color 0.3s;
-        }
-
-        .dark-mode header {
-            background-color: #14142b;
         }
 
         nav ul {
@@ -48,10 +39,6 @@
             color: #eaeaea;
             text-decoration: none;
             transition: color 0.3s;
-        }
-
-        .dark-mode nav ul li a {
-            color: #f4f4f4;
         }
 
         .slider-container {
@@ -130,21 +117,39 @@
     <script>
         const modeSlider = document.getElementById('modeSlider');
 
-        modeSlider.addEventListener('input', () => {
-            const value = modeSlider.value;
-            const darkValue = value / 100;
+        function interpolateColor(color1, color2, factor) {
+            const result = color1.slice();
+            for (let i = 0; i < 3; i++) {
+                result[i] = Math.round(result[i] + factor * (color2[i] - result[i]));
+            }
+            return result;
+        }
 
-            const bodyBg = `rgba(26, 26, 46, ${darkValue})`;
-            const bodyColor = darkValue > 0.5 ? '#eaeaea' : '#333';
-            const headerBg = `rgba(26, 26, 46, ${darkValue})`;
-            const linkColor = darkValue > 0.5 ? '#f4f4f4' : '#eaeaea';
+        function rgbToCss(rgb) {
+            return `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
+        }
 
-            document.body.style.backgroundColor = bodyBg;
-            document.body.style.color = bodyColor;
-            document.querySelector('header').style.backgroundColor = headerBg;
+        function adjustColors(value) {
+            const lightBg = [244, 244, 244];
+            const darkBg = [26, 26, 46];
+            const lightText = [51, 51, 51];
+            const darkText = [234, 234, 234];
+
+            const factor = value / 100;
+            const bgColor = interpolateColor(lightBg, darkBg, factor);
+            const textColor = interpolateColor(lightText, darkText, factor);
+            const headerColor = interpolateColor(lightBg, darkBg, factor);
+
+            document.body.style.backgroundColor = rgbToCss(bgColor);
+            document.body.style.color = rgbToCss(textColor);
+            document.querySelector('header').style.backgroundColor = rgbToCss(headerColor);
             document.querySelectorAll('nav ul li a').forEach(link => {
-                link.style.color = linkColor;
+                link.style.color = rgbToCss(textColor);
             });
+        }
+
+        modeSlider.addEventListener('input', () => {
+            adjustColors(modeSlider.value);
         });
 
         document.addEventListener("DOMContentLoaded", () => {
