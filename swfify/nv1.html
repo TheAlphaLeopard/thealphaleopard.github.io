@@ -56,39 +56,40 @@
             color: #f4f4f4;
         }
 
-        .slider {
+        .slider-container {
             position: absolute;
             top: 1rem;
-            right: 1rem;
-            width: 50px;
+            left: 1rem;
+            width: 200px;
+        }
+
+        .slider {
+            width: 100%;
             height: 25px;
-            background-color: #ccc;
-            border-radius: 25px;
+            background: linear-gradient(to right, #f4f4f4, #1a1a2e);
+            border-radius: 12.5px;
+            -webkit-appearance: none;
+            appearance: none;
             cursor: pointer;
-            transition: background-color 0.3s;
         }
 
-        .slider::before {
-            content: '';
-            position: absolute;
-            width: 21px;
-            height: 21px;
-            border-radius: 50%;
+        .slider::-webkit-slider-thumb {
+            width: 30px;
+            height: 30px;
             background-color: #fff;
-            top: 2px;
-            left: 2px;
-            transition: transform 0.3s;
-            background-image: url('image/lightmode.svg');
-            background-size: cover;
+            border-radius: 50%;
+            border: 2px solid #ccc;
+            -webkit-appearance: none;
+            appearance: none;
         }
 
-        .dark-mode .slider {
-            background-color: #666;
-        }
-
-        .dark-mode .slider::before {
-            transform: translateX(25px);
-            background-image: url('image/darkmode.svg');
+        .slider::-moz-range-thumb {
+            width: 30px;
+            height: 30px;
+            background-color: #fff;
+            border-radius: 50%;
+            border: 2px solid #ccc;
+            cursor: pointer;
         }
 
         #flash-container {
@@ -121,18 +122,25 @@
                 <li><a href="project3.html">Project 3</a></li>
             </ul>
         </nav>
-        <div class="slider" id="modeToggle"></div>
+        <div class="slider-container">
+            <input type="range" min="0" max="100" value="0" class="slider" id="modeSlider">
+        </div>
     </header>
 
     <div id="flash-container"></div>
 
     <script>
-        const modeToggle = document.getElementById('modeToggle');
-        let darkMode = false;
+        const modeSlider = document.getElementById('modeSlider');
 
-        modeToggle.addEventListener('click', () => {
-            darkMode = !darkMode;
-            document.body.classList.toggle('dark-mode', darkMode);
+        modeSlider.addEventListener('input', () => {
+            const value = modeSlider.value;
+            const darkValue = value / 100;
+            document.body.style.backgroundColor = `rgba(26, 26, 46, ${darkValue})`;
+            document.body.style.color = darkValue > 0.5 ? '#eaeaea' : '#333';
+            document.querySelector('header').style.backgroundColor = `rgba(26, 26, 46, ${darkValue})`;
+            document.querySelectorAll('nav ul li a').forEach(link => {
+                link.style.color = darkValue > 0.5 ? '#f4f4f4' : '#eaeaea';
+            });
         });
 
         document.addEventListener("DOMContentLoaded", () => {
