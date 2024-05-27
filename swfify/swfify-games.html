@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swfify Games</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        header {
+            background-color: #1a1a2e;
+            color: #eaeaea;
+            padding: 1rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s, color 0.3s;
+            position: relative;
+        }
+
+        h1 {
+            margin-left: 1rem;
+            transition: color 0.3s;
+        }
+
+        nav {
+            margin: 0 auto;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            margin: 0;
+        }
+
+        nav ul li {
+            margin: 0 1rem;
+        }
+
+        nav ul li a {
+            color: #eaeaea;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+
+        .game-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .game {
+            text-align: center;
+            width: calc(33.333% - 2rem);
+        }
+
+        .game img {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .game img:hover {
+            transform: scale(1.1);
+        }
+
+        .game p {
+            margin-top: 0.5rem;
+        }
+
+        .slider-container {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 100px;
+        }
+
+        .slider {
+            width: 100%;
+            height: 20px;
+            background: linear-gradient(to right, #f4f4f4, #1a1a2e);
+            border-radius: 10px;
+            -webkit-appearance: none;
+            appearance: none;
+            cursor: pointer;
+        }
+
+        .slider::-webkit-slider-thumb {
+            width: 25px;
+            height: 25px;
+            background-color: #fff;
+            border-radius: 50%;
+            border: 2px solid #ccc;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        .slider::-moz-range-thumb {
+            width: 25px;
+            height: 25px;
+            background-color: #fff;
+            border-radius: 50%;
+            border: 2px solid #ccc;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Swfify Games</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="swfify.html">Swfify</a></li>
+                <li><a href="project2.html">Project 2</a></li>
+                <li><a href="project3.html">Project 3</a></li>
+            </ul>
+        </nav>
+        <div class="slider-container">
+            <input type="range" min="0" max="100" value="0" class="slider" id="modeSlider">
+        </div>
+    </header>
+    
+    <section id="games">
+        <div class="container">
+            <h2>Games</h2>
+            <div class="game-list">
+                <div class="game">
+                    <a href="index.html"><img src="placeholder1.jpg" alt="Game 1"></a>
+                    <p>Game 1</p>
+                </div>
+                <div class="game">
+                    <a href="index.html"><img src="placeholder2.jpg" alt="Game 2"></a>
+                    <p>Game 2</p>
+                </div>
+                <div class="game">
+                    <a href="index.html"><img src="placeholder3.jpg" alt="Game 3"></a>
+                    <p>Game 3</p>
+                </div>
+                <!-- Add more games as needed -->
+            </div>
+        </div>
+    </section>
+    
+    <script>
+        const modeSlider = document.getElementById('modeSlider');
+
+        function interpolateColor(color1, color2, factor) {
+            const result = color1.slice();
+            for (let i = 0; i < 3; i++) {
+                result[i] = Math.round(result[i] + factor * (color2[i] - result[i]));
+            }
+            return result;
+        }
+
+        function rgbToCss(rgb) {
+            return `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
+        }
+
+        function adjustColors(value) {
+            const lightBg = [244, 244, 244];
+            const darkBg = [26, 26, 46];
+            const lightText = [51, 51, 51];
+            const darkText = [234, 234, 234];
+
+            const factor = value / 100;
+            const bgColor = interpolateColor(lightBg, darkBg, factor);
+            const textColor = interpolateColor(lightText, darkText, factor);
+            const headerColor = interpolateColor(lightBg, darkBg, factor);
+
+            document.body.style.backgroundColor = rgbToCss(bgColor);
+            document.body.style.color = rgbToCss(textColor);
+            document.querySelector('header').style.backgroundColor = rgbToCss(headerColor);
+            document.querySelector('h1').style.color = rgbToCss(textColor);
+            document.querySelectorAll('nav ul li a').forEach(link => {
+                link.style.color = rgbToCss(textColor);
+            });
+        }
+
+        modeSlider.addEventListener('input', () => {
+            adjustColors(modeSlider.value);
+        });
+    </script>
+</body>
+</html>
