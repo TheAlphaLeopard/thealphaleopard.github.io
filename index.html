@@ -28,10 +28,6 @@
             transition: color 0.3s;
         }
 
-        nav {
-            margin: 0 auto;
-        }
-
         nav ul {
             list-style: none;
             padding: 0;
@@ -48,6 +44,50 @@
             color: #eaeaea;
             text-decoration: none;
             transition: color 0.3s;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+
+        h2 {
+            margin-top: 0;
+        }
+
+        .project-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .project {
+            background-color: #fff;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            width: calc(33.333% - 2rem);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+        .project h3 {
+            margin-top: 0;
+        }
+
+        .project:hover {
+            background-color: #ececec;
+        }
+
+        .dark-mode .project {
+            background-color: #2a2a3e;
+            border-color: #555;
+        }
+
+        .dark-mode .project:hover {
+            background-color: #3a3a5e;
         }
 
         .slider-container {
@@ -85,49 +125,17 @@
             border: 2px solid #ccc;
             cursor: pointer;
         }
-
-        .container {
-            width: 80%;
-            margin: 0 auto;
-            padding: 2rem 0;
-        }
-
-        .project-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
-        }
-
-        .project {
-            background-color: #fff;
-            padding: 1rem;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            width: calc(33.333% - 2rem);
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            cursor: pointer;
-            transition: background-color 0.3s, border-color 0.3s;
-        }
-
-        .project:hover {
-            background-color: #ececec;
-        }
-
-        h2, h3 {
-            transition: color 0.3s;
-        }
-
     </style>
 </head>
 <body>
     <header>
-        <h1>My Projects</h1>
+        <h1>TheAlphaLeopard</h1>
         <nav>
             <ul>
-                <li><a href="index.html">Home</a></li>
+                <li><a href="#">My Projects</a></li>
                 <li><a href="swfify/swfify-player.html">Swfify</a></li>
-                <li><a href="swfify/swfify-games.html">Swfify-Games</a></li>
-                <li><a href="project3.html">Project 3</a></li>
+                <li><a href="swfify/swfify-games.html">Swfify Games</a></li>
+                <li><a href="#">Project 3</a></li>
             </ul>
         </nav>
         <div class="slider-container">
@@ -139,13 +147,13 @@
         <div class="container">
             <h2>Projects</h2>
             <div class="project-list">
-                <div class="project" id="swfify-player" onclick="navigateToProject('swfify/swfify-player.html')">
-                    <h3>Swfify</h3>
+                <div class="project" id="swfify" onclick="navigateToProject('swfify/swfify-player.html')">
+                    <h3>Swfify-Player</h3>
                     <p>Swfify is a Flash player built off ruffle.rs.</p>
                 </div>
                 <div class="project" id="swfify-games" onclick="navigateToProject('swfify/swfify-games.html')">
-                    <h3>Swfify Games</h3>
-                    <p>A collection of games made using the Swfify software.</p>
+                    <h3>Swfify-Games</h3>
+                    <p>A collection of fun flash games, built using Swfify!</p>
                 </div>
                 <div class="project" id="project3" onclick="navigateToProject('project3.html')">
                     <h3>Project 3</h3>
@@ -185,7 +193,6 @@
             document.body.style.color = rgbToCss(textColor);
             document.querySelector('header').style.backgroundColor = rgbToCss(headerColor);
             document.querySelector('h1').style.color = rgbToCss(textColor);
-            document.querySelector('h2').style.color = rgbToCss(textColor);
             document.querySelectorAll('nav ul li a').forEach(link => {
                 link.style.color = rgbToCss(textColor);
             });
@@ -194,10 +201,6 @@
         modeSlider.addEventListener('input', () => {
             adjustColors(modeSlider.value);
         });
-
-        function navigateToProject(url) {
-            window.location.href = url;
-        }
     </script>
 </body>
 </html>
