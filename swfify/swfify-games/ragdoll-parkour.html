@@ -1,1 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>N V1.0</title>
+    <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.3s, color 0.3s;
+        }
 
+        header {
+            background-color: #1a1a2e;
+            color: #eaeaea;
+            padding: 1rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s, color 0.3s;
+            position: relative;
+        }
+
+        h1 {
+            margin-left: 1rem;
+            transition: color 0.3s;
+        }
+
+        nav {
+            margin: 0 auto;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            margin: 0;
+        }
+
+        nav ul li {
+            margin: 0 1rem;
+        }
+
+        nav ul li a {
+            color: #eaeaea;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .slider-container {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 100px;
+        }
+
+        .slider {
+            width: 100%;
+            height: 20px;
+            background: linear-gradient(to right, #f4f4f4, #1a1a2e);
+            border-radius: 10px;
+            -webkit-appearance: none;
+            appearance: none;
+            cursor: pointer;
+        }
+
+        .slider::-webkit-slider-thumb {
+            width: 25px;
+            height: 25px;
+            background-color: #fff;
+            border-radius: 50%;
+            border: 2px solid #ccc;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        .slider::-moz-range-thumb {
+            width: 25px;
+            height: 25px;
+            background-color: #fff;
+            border-radius: 50%;
+            border: 2px solid #ccc;
+            cursor: pointer;
+        }
+
+        #flash-container {
+            width: 90vw;
+            height: 90vh;
+            background-color: #fff;
+            position: relative;
+            will-change: transform;
+            transform: translateZ(0);
+            background: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        ruffle-player {
+            width: 95%;
+            height: 95%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>My Projects</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="swfify/swfify-player.html">Swfify</a></li>
+                <li><a href="swfify/swfify-games.html">Swfify Games</a></li>
+                <li><a href="project3.html">Project 3</a></li>
+            </ul>
+        </nav>
+        <div class="slider-container">
+            <input type="range" min="0" max="100" value="0" class="slider" id="modeSlider">
+        </div>
+    </header>
+
+    <div id="flash-container"></div>
+
+    <script>
+ <iframe src="https://html5.gamedistribution.com/fcfa6095c9be4762aa3c26ae6483426b/?gd_sdk_referrer_url=https://gamedistribution.com/games/ragdoll-parkour-simulator/" width="800" height="600" scrolling="none" frameborder="0"></iframe>
+    </script>
+</body>
+</html>
