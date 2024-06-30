@@ -39,9 +39,11 @@ h1 {
 }
 
 .link-container button {
+    transition: all 0.2s ;
     background-color: #444;
     color: white;
-    border: none;
+    border: solid;
+    border-color: #555;
     padding: 10px;
     border-radius: 5px;
     cursor: pointer;
@@ -54,4 +56,6 @@ h1 {
 
 .link-container button:hover {
     background-color: #555;
+    width: 110%;
+    border-radius: 10px;
 }
