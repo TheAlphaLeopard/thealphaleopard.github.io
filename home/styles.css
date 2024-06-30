@@ -7,6 +7,7 @@ body, html {
     align-items: center;
     background-color: #121212; /* Dark mode background */
     color: #ffffff; /* Light text for dark mode */
+    font-family: Arial, sans-serif; /* Set a default font */
 }
 
 .container {
@@ -14,13 +15,20 @@ body, html {
     width: 100%;
     height: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
 .logo {
-    width: 150px; /* Adjust as needed */
+    width: 200px; /* Increased size */
     height: auto;
+}
+
+.text {
+    margin-top: 20px; /* Space between logo and text */
+    font-size: 24px; /* Font size for the text */
+    text-align: center;
 }
 
 .menu {
