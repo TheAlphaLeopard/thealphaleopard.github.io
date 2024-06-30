@@ -5,7 +5,8 @@ body, html {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #f0f0f0; /* Adjust as needed */
+    background-color: #121212; /* Dark mode background */
+    color: #ffffff; /* Light text for dark mode */
 }
 
 .container {
@@ -23,7 +24,7 @@ body, html {
 }
 
 .menu {
-    position: absolute;
+    position: fixed;
     top: 20px; /* Adjust as needed */
     right: 20px; /* Adjust as needed */
     width: 40px; /* Adjust as needed */
