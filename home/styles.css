@@ -16,7 +16,7 @@ body {
 }
 
 h1 {
-    -webkit-text-stroke-color: black;
+    -webkit-text-stroke-color: #f6ba02;
     margin-bottom: 20px;
 }
 
@@ -26,18 +26,20 @@ h1 {
     align-items: center;
     background-color: #333;
     padding: 20px;
+    border: solid;
     border-radius: 10px;
+    border-color: #f6ba02;
     margin-bottom: 20px;
     width: 300px;
 }
 
 .link-container h2 {
-    -webkit-text-stroke-color: black;
+    -webkit-text-stroke-color: #f6ba02;
     margin: 0 0 10px 0;
 }
 
 .link-container p {
-    -webkit-text-stroke-color: black;
+    -webkit-text-stroke-color: #f6ba02;
     margin: 0 0 20px 0;
 }
 
