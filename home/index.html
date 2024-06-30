@@ -26,49 +26,54 @@
             margin-bottom: 20px;
         }
 
-        .button-container {
+        .link-container {
             display: flex;
             flex-direction: column;
             align-items: center;
             background-color: #333;
             padding: 20px;
             border-radius: 10px;
+            margin-bottom: 20px;
             width: 300px;
         }
 
-        .button-container button {
+        .link-container h2 {
+            margin: 0 0 10px 0;
+        }
+
+        .link-container p {
+            margin: 0 0 20px 0;
+        }
+
+        .link-container button {
             background-color: #444;
             color: white;
             border: none;
             padding: 10px;
-            margin: 5px;
             border-radius: 5px;
             cursor: pointer;
             width: 100%;
         }
 
-        .button-container button:hover {
+        .link-container button:hover {
             background-color: #555;
-        }
-
-        .description {
-            margin-top: 20px;
-            text-align: center;
         }
     </style>
 </head>
 <body>
     <h1>THEALPHALEOPARD</h1>
     <img src="imgs/homelogo.png" alt="Logo" class="logo">
-    <div class="button-container">
-        <button>Link 1</button>
-        <button>Link 2</button>
-        <button>Link 3</button>
-        <button>Link 4</button>
-        <button>Link 5</button>
+
+    <div class="link-container">
+        <h2>Growl-AI Chat</h2>
+        <p>This is a short description of Link 1.</p>
+        <button onclick="window.location.href='../apps/growl-ai/growl-ai.html';">Go to Link 1</button>
     </div>
-    <div class="description">
-        <p>This is a description of the links above. You can click any of the buttons to explore more.</p>
+
+    <div class="link-container">
+        <h2>Link 2 Title</h2>
+        <p>This is a short description of Link 2.</p>
+        <button onclick="window.location.href='https://example.com/link2';">Go to Link 2</button>
     </div>
 </body>
 </html>
