@@ -46,7 +46,10 @@ h1 {
     border-radius: 5px;
     cursor: pointer;
     width: 100%;
-    background-image: url(imgs/openbutton.png);
+    background-image: url('imgs/openbutton.png');
+    background-size: contain; /* Makes the image fit within the button */
+    background-repeat: no-repeat; /* Prevents the image from repeating */
+    background-position: center; /* Centers the image within the button */
 }
 
 .link-container button:hover {
