@@ -56,6 +56,7 @@ h1 {
 
 .link-container button:hover {
     background-color: #555;
+    border-color: #444;
     width: 110%;
     border-radius: 10px;
 }
