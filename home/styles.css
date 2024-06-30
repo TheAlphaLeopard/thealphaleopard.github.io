@@ -16,6 +16,7 @@ body {
 }
 
 h1 {
+    -webkit-text-stroke-color: black;
     margin-bottom: 20px;
 }
 
@@ -31,10 +32,12 @@ h1 {
 }
 
 .link-container h2 {
+    -webkit-text-stroke-color: black;
     margin: 0 0 10px 0;
 }
 
 .link-container p {
+    -webkit-text-stroke-color: black;
     margin: 0 0 20px 0;
 }
 
