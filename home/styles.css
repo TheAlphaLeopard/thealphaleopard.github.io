@@ -1,5 +1,5 @@
 body {
-    background-color: #121212; /* Dark mode background */
+    background-color: black; /* Dark mode background */
     color: white;
     display: flex;
     flex-direction: column;
