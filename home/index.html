@@ -15,11 +15,14 @@
         <img src="imgs/menu.svg" alt="Menu">
     </div>
     <div class="menu" id="menu">
-        <button onclick="window.location.href='../apps/chess'">Chess</button>
-        <button onclick="window.location.href='../apps/app2'">App 2</button>
-        <button onclick="window.location.href='../apps/app3'">App 3</button>
-        <!-- Add more buttons as needed -->
+        <div class="menu-content">
+            <button onclick="window.location.href='../apps/chess'">Chess</button>
+            <button onclick="window.location.href='../apps/app2'">App 2</button>
+            <button onclick="window.location.href='../apps/app3'">App 3</button>
+            <!-- Add more buttons as needed -->
+        </div>
     </div>
+    <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
     <script src="script.js"></script>
 </body>
 </html>
