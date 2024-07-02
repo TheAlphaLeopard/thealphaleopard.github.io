@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (piece) {
                 const img = document.createElement("img");
-                img.src = `../../home/imgs/${pieceImages[piece]}`;
+                img.src = `/imgs/${pieceImages[piece]}`;
                 img.alt = piece;
                 img.classList.add("chess-piece");
                 square.appendChild(img);
