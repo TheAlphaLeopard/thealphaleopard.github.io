@@ -63,10 +63,38 @@ h1 {
     border-radius: 5px;
 }
 
-.redirect {
-    color:white;
+.loader-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
-.redirect p:link {
+.loading-text {
+    font-size: 24px;
+    font-weight: bold;
     color: #f6ba02;
+}
+
+.dots::after {
+    content: '';
+    display: inline-block;
+    width: 1em;
+    text-align: left;
+    animation: dots 1.5s steps(4, end) infinite;
+}
+
+@keyframes dots {
+    0%, 20% {
+        content: '';
+    }
+    40% {
+        content: '.';
+    }
+    60% {
+        content: '..';
+    }
+    80%, 100% {
+        content: '...';
+    }
 }
