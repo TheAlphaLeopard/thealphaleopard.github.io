@@ -1,16 +1,1 @@
 1: Chess (Local)
-CODE:
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TheAlphaLeopard</title>
-    <link rel="shortcut icon" type="image/x-icon" href="../home/imgs/favicon.ico"/>
-    <link rel="stylesheet" type="text/css" href="../home/styles.css" />
-</head>
-<body>
-    <h1>
-        GYATTTTTTTTTTTTTTTTTTt
-    </h1>
-</body>
