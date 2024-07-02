@@ -10,20 +10,6 @@ body {
     font-family: Arial, sans-serif;
 }
 
-.logo {
-    transition: size 0.25s;
-    max-width: 200px;
-    margin-bottom: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.logo:hover {
-    size: 105%;
-    
-}
 
 h1 {
     -webkit-text-stroke-color: #f6ba02;
