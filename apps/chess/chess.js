@@ -42,11 +42,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 img.src = `../../home/imgs/${pieceImages[piece]}`;
                 img.alt = piece;
                 img.classList.add("chess-piece");
-
-                // Debug log for image loading
-                console.log(`Loading image: ${img.src} for piece: ${piece}`);
-                img.onerror = () => console.error(`Error loading image: ${img.src}`);
-
                 square.appendChild(img);
             }
 
