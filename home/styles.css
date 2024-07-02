@@ -11,8 +11,15 @@ body {
 }
 
 .logo {
+    transition: all 0.2s;
     max-width: 200px;
     margin-bottom: 20px;
+}
+
+.logo:hover {
+    size: 120%;
+
+    
 }
 
 h1 {
@@ -69,5 +76,6 @@ h1 {
 
 .redirect {
     color:#f6ba02;
+    
 
 }
