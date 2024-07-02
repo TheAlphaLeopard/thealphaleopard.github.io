@@ -86,13 +86,13 @@ h1 {
 
 @keyframes dots {
     0%, 20% {
-        content: '___';
+        content: '';
     }
     40% {
-        content: '.__';
+        content: '.';
     }
     60% {
-        content: '.._';
+        content: '..';
     }
     80%, 100% {
         content: '...';
