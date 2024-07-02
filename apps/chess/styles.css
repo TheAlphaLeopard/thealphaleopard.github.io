@@ -21,6 +21,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
 }
 
 .white {
@@ -29,4 +30,10 @@ body {
 
 .black {
     background-color: #b58863;
+}
+
+.chess-piece {
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
 }
