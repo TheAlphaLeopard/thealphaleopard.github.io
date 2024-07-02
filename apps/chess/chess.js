@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
         'n': 'black_knight.png',
         'b': 'black_bishop.png',
         'q': 'black_queen.png',
-        'k': 'black_king.png'
+        'k': 'black_king.png',
     };
 
     const createBoard = () => {
@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const isWhitePiece = piece.toUpperCase() === piece;
 
         if (selectedPiece) {
-            if (isMoveValid(selectedPiece, selectedPiecePosition, index)) {
+            if (isMoveValid(selectedPiece, selectedPiecePosition, index, initialBoard)) {
                 movePiece(selectedPiecePosition, index);
                 selectedPiece = null;
                 selectedPiecePosition = null;
@@ -69,13 +69,6 @@ document.addEventListener("DOMContentLoaded", () => {
             selectedPiece = piece;
             selectedPiecePosition = index;
         }
-    };
-
-    const isMoveValid = (piece, fromIndex, toIndex) => {
-        // Add logic for validating chess moves based on piece type
-        // For now, we'll just allow any move to an empty square or capture
-        const targetPiece = initialBoard[toIndex];
-        return !targetPiece || (turn === 'white' && targetPiece.toLowerCase() === targetPiece) || (turn === 'black' && targetPiece.toUpperCase() === targetPiece);
     };
 
     const movePiece = (fromIndex, toIndex) => {
