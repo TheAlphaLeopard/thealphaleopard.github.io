@@ -16,18 +16,18 @@ document.addEventListener("DOMContentLoaded", () => {
     ];
 
     const pieceImages = {
-        'P': 'white_pawn.png',
-        'R': 'white_rook.png',
-        'N': 'white_knight.png',
-        'B': 'white_bishop.png',
-        'Q': 'white_queen.png',
-        'K': 'white_king.png',
-        'p': 'black_pawn.png',
-        'r': 'black_rook.png',
-        'n': 'black_knight.png',
-        'b': 'black_bishop.png',
-        'q': 'black_queen.png',
-        'k': 'black_king.png',
+        'P': 'imgs/white_pawn.png',
+        'R': 'imgs/white_rook.png',
+        'N': 'imgs/white_knight.png',
+        'B': 'imgs/white_bishop.png',
+        'Q': 'imgs/white_queen.png',
+        'K': 'imgs/white_king.png',
+        'p': 'imgs/black_pawn.png',
+        'r': 'imgs/black_rook.png',
+        'n': 'imgs/black_knight.png',
+        'b': 'imgs/black_bishop.png',
+        'q': 'imgs/black_queen.png',
+        'k': 'imgs/black_king.png',
     };
 
     const createBoard = () => {
@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (piece) {
                 const img = document.createElement("img");
-                img.src = `../imgs/${pieceImages[piece]}`;
+                img.src = pieceImages[piece];
                 img.alt = piece;
                 img.classList.add("chess-piece");
                 square.appendChild(img);
