@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     const boardElement = document.getElementById("chess-board");
+    const statusElement = document.getElementById("status");
     let selectedPiece = null;
     let selectedPiecePosition = null;
     let turn = 'white';
@@ -61,10 +62,23 @@ document.addEventListener("DOMContentLoaded", () => {
         if (selectedPiece) {
             if (isMoveValid(selectedPiece, selectedPiecePosition, index, initialBoard)) {
                 movePiece(selectedPiecePosition, index);
-                selectedPiece = null;
-                selectedPiecePosition = null;
-                turn = turn === 'white' ? 'black' : 'white';
-                createBoard();
+                if (isInCheck(turn)) {
+                    undoMove(selectedPiecePosition, index);
+                    statusElement.textContent = 'Invalid move, you are in check!';
+                } else {
+                    selectedPiece = null;
+                    selectedPiecePosition = null;
+                    turn = turn === 'white' ? 'black' : 'white';
+                    if (isInCheck(turn)) {
+                        statusElement.textContent = turn.charAt(0).toUpperCase() + turn.slice(1) + ' is in check!';
+                        if (isCheckmate(turn)) {
+                            statusElement.textContent = 'Checkmate! ' + (turn === 'white' ? 'Black' : 'White') + ' wins!';
+                        }
+                    } else {
+                        statusElement.textContent = '';
+                    }
+                    createBoard();
+                }
             } else {
                 selectedPiece = null;
                 selectedPiecePosition = null;
@@ -78,6 +92,47 @@ document.addEventListener("DOMContentLoaded", () => {
     const movePiece = (fromIndex, toIndex) => {
         initialBoard[toIndex] = initialBoard[fromIndex];
         initialBoard[fromIndex] = '';
+    };
+
+    const undoMove = (fromIndex, toIndex) => {
+        initialBoard[fromIndex] = initialBoard[toIndex];
+        initialBoard[toIndex] = '';
+    };
+
+    const isInCheck = (color) => {
+        const kingPosition = initialBoard.findIndex(piece => piece === (color === 'white' ? 'K' : 'k'));
+        return isSquareUnderAttack(kingPosition, color === 'white' ? 'black' : 'white');
+    };
+
+    const isSquareUnderAttack = (square, attackingColor) => {
+        for (let i = 0; i < initialBoard.length; i++) {
+            if (initialBoard[i] && ((attackingColor === 'white' && initialBoard[i] === initialBoard[i].toUpperCase()) || 
+                (attackingColor === 'black' && initialBoard[i] === initialBoard[i].toLowerCase()))) {
+                if (isMoveValid(initialBoard[i], i, square, initialBoard)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    };
+
+    const isCheckmate = (color) => {
+        for (let i = 0; i < initialBoard.length; i++) {
+            if (initialBoard[i] && ((color === 'white' && initialBoard[i] === initialBoard[i].toUpperCase()) || 
+                (color === 'black' && initialBoard[i] === initialBoard[i].toLowerCase()))) {
+                for (let j = 0; j < initialBoard.length; j++) {
+                    if (isMoveValid(initialBoard[i], i, j, initialBoard)) {
+                        movePiece(i, j);
+                        if (!isInCheck(color)) {
+                            undoMove(i, j);
+                            return false;
+                        }
+                        undoMove(i, j);
+                    }
+                }
+            }
+        }
+        return true;
     };
 
     createBoard();
