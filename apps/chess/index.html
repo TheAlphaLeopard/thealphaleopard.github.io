@@ -4,13 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TheAlphaLeopard</title>
-    <link rel="shortcut icon" type="image/x-icon" href="../../home/imgs/pounce.ico"/>
+    <link rel="shortcut icon" type="image/x-icon" href="../../home/imgs/favicon.ico"/>
     <link rel="stylesheet" type="text/css" href="styles.css" />
 </head>
 <body>
     <div class="chess-board" id="chess-board"></div>
     <div id="status"></div>
-    <script src="js/movecheck.js"></script>
+    <div id="checkmate" class="hidden">
+        <h1>Checkmate!</h1>
+        <button id="home-btn">Home</button>
+        <button id="play-again-btn">Play Again</button>
+    </div>
+    <script src="home/js/movecheck.js"></script>
     <script src="js/chess.js"></script>
 </body>
 </html>

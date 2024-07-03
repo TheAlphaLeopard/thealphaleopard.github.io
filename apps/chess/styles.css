@@ -14,6 +14,7 @@ body {
     grid-template-columns: repeat(8, 80px);
     grid-template-rows: repeat(8, 80px);
     gap: 0;
+    position: relative;
 }
 
 .chess-board div {
@@ -39,7 +40,41 @@ body {
     cursor: pointer;
 }
 
-#status {
-    margin-top: 20px;
+#checkmate {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.hidden {
+    display: none;
+}
+
+#checkmate h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+#checkmate button {
+    margin: 10px;
+    padding: 10px 20px;
     font-size: 18px;
+    cursor: pointer;
+}
+
+#checkmate button:hover {
+    background-color: #555;
+    color: white;
+}
+
+.in-check {
+    border: 4px solid yellow;
 }

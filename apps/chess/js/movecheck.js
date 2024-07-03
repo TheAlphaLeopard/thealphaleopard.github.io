@@ -6,6 +6,31 @@ const isMoveValid = (piece, fromIndex, toIndex, board) => {
     const targetPiece = board[toIndex];
     const isWhite = piece === piece.toUpperCase();
 
+    const isPathClear = (fromIndex, toIndex, direction) => {
+        let step;
+        switch (direction) {
+            case 'horizontal':
+                step = fromX < toX ? 1 : -1;
+                for (let i = fromX + step; i !== toX; i += step) {
+                    if (board[fromY * 8 + i]) return false;
+                }
+                break;
+            case 'vertical':
+                step = fromY < toY ? 8 : -8;
+                for (let i = fromIndex + step; i !== toIndex; i += step) {
+                    if (board[i]) return false;
+                }
+                break;
+            case 'diagonal':
+                step = (toIndex - fromIndex) / Math.abs(toIndex - fromIndex) * 9;
+                for (let i = fromIndex + step; i !== toIndex; i += step) {
+                    if (board[i]) return false;
+                }
+                break;
+        }
+        return true;
+    };
+
     switch (piece.toLowerCase()) {
         case 'p': // Pawn
             if (isWhite) {
@@ -31,7 +56,7 @@ const isMoveValid = (piece, fromIndex, toIndex, board) => {
             }
             break;
         case 'r': // Rook
-            if (deltaX === 0 || deltaY === 0) {
+            if ((deltaX === 0 || deltaY === 0) && isPathClear(fromIndex, toIndex, deltaX === 0 ? 'vertical' : 'horizontal')) {
                 return true;
             }
             break;
@@ -41,12 +66,13 @@ const isMoveValid = (piece, fromIndex, toIndex, board) => {
             }
             break;
         case 'b': // Bishop
-            if (Math.abs(deltaX) === Math.abs(deltaY)) {
+            if (Math.abs(deltaX) === Math.abs(deltaY) && isPathClear(fromIndex, toIndex, 'diagonal')) {
                 return true;
             }
             break;
         case 'q': // Queen
-            if (deltaX === 0 || deltaY === 0 || Math.abs(deltaX) === Math.abs(deltaY)) {
+            if ((deltaX === 0 || deltaY === 0 || Math.abs(deltaX) === Math.abs(deltaY)) &&
+                isPathClear(fromIndex, toIndex, deltaX === 0 ? 'vertical' : deltaY === 0 ? 'horizontal' : 'diagonal')) {
                 return true;
             }
             break;
