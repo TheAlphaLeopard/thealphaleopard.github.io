@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let selectedPiecePosition = null;
     let turn = 'white';
 
-    const initialBoard = [
+    let initialBoard = [
         'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r',
         'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p',
         '', '', '', '', '', '', '', '',
@@ -20,18 +20,18 @@ document.addEventListener("DOMContentLoaded", () => {
     ];
 
     const pieceImages = {
-        'P': 'imgs/white_pawn.png',
-        'R': 'imgs/white_rook.png',
-        'N': 'imgs/white_knight.png',
-        'B': 'imgs/white_bishop.png',
-        'Q': 'imgs/white_queen.png',
-        'K': 'imgs/white_king.png',
-        'p': 'imgs/black_pawn.png',
-        'r': 'imgs/black_rook.png',
-        'n': 'imgs/black_knight.png',
-        'b': 'imgs/black_bishop.png',
-        'q': 'imgs/black_queen.png',
-        'k': 'imgs/black_king.png',
+        'P': '../../home/imgs/white_pawn.png',
+        'R': '../../home/imgs/white_rook.png',
+        'N': '../../home/imgs/white_knight.png',
+        'B': '../../home/imgs/white_bishop.png',
+        'Q': '../../home/imgs/white_queen.png',
+        'K': '../../home/imgs/white_king.png',
+        'p': '../../home/imgs/black_pawn.png',
+        'r': '../../home/imgs/black_rook.png',
+        'n': '../../home/imgs/black_knight.png',
+        'b': '../../home/imgs/black_bishop.png',
+        'q': '../../home/imgs/black_queen.png',
+        'k': '../../home/imgs/black_king.png',
     };
 
     const createBoard = () => {
