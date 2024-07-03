@@ -32,10 +32,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const createBoard = () => {
         boardElement.innerHTML = '';
-        initialBoard.forEach((piece, index) => {
+        let board = initialBoard;
+        if (turn === 'black') {
+            board = board.slice().reverse();
+        }
+        board.forEach((piece, index) => {
             const square = document.createElement("div");
             square.classList.add((Math.floor(index / 8) + index % 8) % 2 === 0 ? "white" : "black");
-            square.dataset.index = index;
+            square.dataset.index = turn === 'white' ? index : 63 - index;
 
             if (piece) {
                 const img = document.createElement("img");
@@ -45,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 square.appendChild(img);
             }
 
-            square.addEventListener("click", () => handleSquareClick(index));
+            square.addEventListener("click", () => handleSquareClick(square.dataset.index));
             boardElement.appendChild(square);
         });
     };
