@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     const boardElement = document.getElementById("chess-board");
+    const statusElement = document.getElementById("status");
     const checkmateElement = document.getElementById("checkmate");
     const homeButton = document.getElementById("home-btn");
     const playAgainButton = document.getElementById("play-again-btn");
@@ -8,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let selectedPiecePosition = null;
     let turn = 'white';
 
-    let initialBoard = [
+    const initialBoard = [
         'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r',
         'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p',
         '', '', '', '', '', '', '', '',
@@ -20,18 +21,18 @@ document.addEventListener("DOMContentLoaded", () => {
     ];
 
     const pieceImages = {
-        'P': 'imgs/white_pawn.png',
-        'R': 'imgs/white_rook.png',
-        'N': 'imgs/white_knight.png',
-        'B': 'imgs/white_bishop.png',
-        'Q': 'imgs/white_queen.png',
-        'K': 'imgs/white_king.png',
-        'p': 'imgs/black_pawn.png',
-        'r': 'imgs/black_rook.png',
-        'n': 'imgs/black_knight.png',
-        'b': 'imgs/black_bishop.png',
-        'q': 'imgs/black_queen.png',
-        'k': 'imgs/black_king.png',
+        'P': '../../home/imgs/white_pawn.png',
+        'R': '../../home/imgs/white_rook.png',
+        'N': '../../home/imgs/white_knight.png',
+        'B': '../../home/imgs/white_bishop.png',
+        'Q': '../../home/imgs/white_queen.png',
+        'K': '../../home/imgs/white_king.png',
+        'p': '../../home/imgs/black_pawn.png',
+        'r': '../../home/imgs/black_rook.png',
+        'n': '../../home/imgs/black_knight.png',
+        'b': '../../home/imgs/black_bishop.png',
+        'q': '../../home/imgs/black_queen.png',
+        'k': '../../home/imgs/black_king.png',
     };
 
     const createBoard = () => {
@@ -72,16 +73,19 @@ document.addEventListener("DOMContentLoaded", () => {
                 movePiece(selectedPiecePosition, index);
                 if (isInCheck(turn)) {
                     undoMove(selectedPiecePosition, index);
-                    document.querySelector(`img[alt=${turn === 'white' ? 'K' : 'k'}]`).classList.add("in-check");
+                    statusElement.textContent = 'Invalid move, you are in check!';
                 } else {
                     selectedPiece = null;
                     selectedPiecePosition = null;
                     turn = turn === 'white' ? 'black' : 'white';
                     if (isInCheck(turn)) {
-                        document.querySelector(`img[alt=${turn === 'white' ? 'K' : 'k'}]`).classList.add("in-check");
+                        statusElement.textContent = turn.charAt(0).toUpperCase() + turn.slice(1) + ' is in check!';
                         if (isCheckmate(turn)) {
+                            statusElement.textContent = '';
                             displayCheckmate();
                         }
+                    } else {
+                        statusElement.textContent = '';
                     }
                     createBoard();
                 }
@@ -127,8 +131,13 @@ document.addEventListener("DOMContentLoaded", () => {
             if (initialBoard[i] && ((color === 'white' && initialBoard[i] === initialBoard[i].toUpperCase()) || 
                 (color === 'black' && initialBoard[i] === initialBoard[i].toLowerCase()))) {
                 for (let j = 0; j < initialBoard.length; j++) {
-                    if (isMoveValid(initialBoard[i], i, j, initialBoard) && !wouldLeaveKingInCheck(i, j)) {
-                        return false;
+                    if (isMoveValid(initialBoard[i], i, j, initialBoard)) {
+                        movePiece(i, j);
+                        if (!isInCheck(color)) {
+                            undoMove(i, j);
+                            return false;
+                        }
+                        undoMove(i, j);
                     }
                 }
             }
@@ -137,10 +146,9 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     const wouldLeaveKingInCheck = (fromIndex, toIndex) => {
-        const tempBoard = initialBoard.slice();
         movePiece(fromIndex, toIndex);
         const inCheck = isInCheck(turn);
-        initialBoard = tempBoard.slice();
+        undoMove(fromIndex, toIndex);
         return inCheck;
     };
 
@@ -168,6 +176,7 @@ document.addEventListener("DOMContentLoaded", () => {
         selectedPiecePosition = null;
         checkmateElement.classList.add("hidden");
         createBoard();
+        statusElement.textContent = '';
     });
 
     createBoard();

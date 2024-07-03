@@ -40,6 +40,11 @@ body {
     cursor: pointer;
 }
 
+#status {
+    margin-top: 20px;
+    font-size: 18px;
+}
+
 #checkmate {
     position: absolute;
     top: 50%;
