@@ -22,53 +22,6 @@ h1 {
     z-index: 1;
 }
 
-.link-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #333;
-    padding: 20px;
-    border: solid;
-    border-radius: 10px;
-    border-color: #f6ba02;
-    margin-bottom: 20px;
-    width: 300px;
-}
-
-.link-container h2 {
-    -webkit-text-stroke-color: #f6ba02;
-    margin: 0 0 10px 0;
-}
-
-.link-container p {
-    -webkit-text-stroke-color: #f6ba02;
-    margin: 0 0 20px 0;
-}
-
-.link-container button {
-    transition: all 0.2s;
-    background-color: #444;
-    color: white;
-    border: solid;
-    border-color: #555;
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 100%;
-    background-image: url('imgs/openbutton.png');
-    background-size: contain;
-    background-repeat: no-repeat; 
-    background-position: center;
-}
-
-.link-container button:hover {
-    background-color: #555;
-    border-color: #444;
-    width: 108%;
-    height: 107.5%;
-    border-radius: 5px;
-}
-
 .loader-container {
     display: flex;
     justify-content: center;
@@ -127,24 +80,26 @@ h1 {
     position: fixed;
     top: 20px;
     right: 20px;
-    width: 200px;
+    width: 220px;
+    max-height: 80vh;
     background-color: #333;
-    padding: 20px;
+    padding: 10px;
     border-radius: 10px;
     z-index: 3;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-    flex-direction: column;
-    align-items: center;
+    overflow-y: auto;
 }
 
 .menu.open {
     display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .menu-content {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-around;
 }
 
 .app-button {
@@ -153,21 +108,25 @@ h1 {
     align-items: center;
     background-color: #444;
     padding: 10px;
-    margin: 10px;
-    border-radius: 15px;
+    margin: 5px;
+    border-radius: 10px;
     cursor: pointer;
     transition: background-color 0.2s;
+    width: 80px;
+    height: 80px;
 }
 
 .app-button img {
     width: 50px;
     height: 50px;
-    border-radius: 10px;
+    border-radius: 5px;
 }
 
 .app-button span {
     margin-top: 5px;
     color: white;
+    font-size: 12px;
+    text-align: center;
 }
 
 .app-button:hover {
