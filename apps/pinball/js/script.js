@@ -38,25 +38,68 @@ const ball = Bodies.circle(window.innerWidth / 2, window.innerHeight - 50, 20, {
 World.add(world, ball);
 
 // Create flippers
-const flipperLeft = Bodies.rectangle(window.innerWidth / 2 - 100, window.innerHeight - 100, 80, 20, { isStatic: true });
-const flipperRight = Bodies.rectangle(window.innerWidth / 2 + 100, window.innerHeight - 100, 80, 20, { isStatic: true });
+const flipperLeft = Bodies.rectangle(window.innerWidth / 2 - 100, window.innerHeight - 100, 80, 20, {
+    isStatic: true,
+    angle: -0.2,
+    render: { fillStyle: '#fff' }
+});
+const flipperRight = Bodies.rectangle(window.innerWidth / 2 + 100, window.innerHeight - 100, 80, 20, {
+    isStatic: true,
+    angle: 0.2,
+    render: { fillStyle: '#fff' }
+});
 World.add(world, [flipperLeft, flipperRight]);
 
 // Rotate flippers
 document.addEventListener('keydown', (event) => {
     if (event.key === 'ArrowLeft') {
-        Body.rotate(flipperLeft, -0.2);
+        Body.setAngle(flipperLeft, -Math.PI / 4);
     } else if (event.key === 'ArrowRight') {
-        Body.rotate(flipperRight, 0.2);
+        Body.setAngle(flipperRight, Math.PI / 4);
     }
 });
 
 document.addEventListener('keyup', (event) => {
     if (event.key === 'ArrowLeft') {
-        Body.rotate(flipperLeft, 0.2);
+        Body.setAngle(flipperLeft, -0.2);
     } else if (event.key === 'ArrowRight') {
-        Body.rotate(flipperRight, -0.2);
+        Body.setAngle(flipperRight, 0.2);
     }
+});
+
+// Create bumpers
+const bumper1 = Bodies.circle(window.innerWidth / 2 - 150, window.innerHeight / 2, 30, {
+    isStatic: true,
+    restitution: 1.5,
+    render: { fillStyle: '#0f0' }
+});
+const bumper2 = Bodies.circle(window.innerWidth / 2, window.innerHeight / 2 - 100, 30, {
+    isStatic: true,
+    restitution: 1.5,
+    render: { fillStyle: '#0f0' }
+});
+const bumper3 = Bodies.circle(window.innerWidth / 2 + 150, window.innerHeight / 2, 30, {
+    isStatic: true,
+    restitution: 1.5,
+    render: { fillStyle: '#0f0' }
+});
+World.add(world, [bumper1, bumper2, bumper3]);
+
+// Scoring
+let score = 0;
+const scoreElement = document.getElementById('score');
+
+Events.on(engine, 'collisionStart', (event) => {
+    event.pairs.forEach((pair) => {
+        if (pair.bodyA === ball || pair.bodyB === ball) {
+            if (pair.bodyA === bumper1 || pair.bodyB === bumper1 ||
+                pair.bodyA === bumper2 || pair.bodyB === bumper2 ||
+                pair.bodyA === bumper3 || pair.bodyB === bumper3) {
+                score += 10;
+                scoreElement.innerText = `Score: ${score}`;
+            }
+        }
+    });
 });
 
 // Keep the canvas size in sync with the window size
