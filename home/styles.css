@@ -10,6 +10,7 @@ body {
     font-family: Arial, sans-serif;
     position: relative;
     overflow: hidden;
+    background-image: url("imgs/background.png");
 }
 
 .background-image {
