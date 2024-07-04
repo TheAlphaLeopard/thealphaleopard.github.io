@@ -16,6 +16,8 @@ body {
     position: absolute;
     top: 0;
     left: 0;
+    width: 20px;
+    height: 20px;
     background: url('imgs/homelogo.png') no-repeat center center;
     background-size: auto;
     z-index: -1;
