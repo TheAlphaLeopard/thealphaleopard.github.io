@@ -17,7 +17,7 @@ body {
     top: 0;
     left: 0;
     background: url('imgs/homelogo.png') no-repeat center center;
-    background-size: cover;
+    background-size: auto;
     z-index: -1;
 }
 
