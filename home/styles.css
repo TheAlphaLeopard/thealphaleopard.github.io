@@ -18,8 +18,8 @@ body {
     left: 0;
     width: 20%;
     height: 20%;
-    background: url('imgs/homelogo.png') no-repeat center center;
-    background-size: auto;
+    background: url('imgs/background.png') no-repeat center center;
+    background-size: cover;
     z-index: -1;
 }
 
