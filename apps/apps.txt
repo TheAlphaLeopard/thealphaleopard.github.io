@@ -1,1 +1,2 @@
 1: Chess (Local)
+2: Pinball
