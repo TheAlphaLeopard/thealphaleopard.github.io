@@ -109,7 +109,7 @@ h1 {
     margin: 5px;
     border-radius: 10px;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: all 0.2s;
     width: 80px;
     height: 80px;
 }
@@ -129,6 +129,8 @@ h1 {
 
 .app-button:hover {
     background-color: #555;
+    width: 105%;
+    height: 105%;
 }
 
 .overlay {
