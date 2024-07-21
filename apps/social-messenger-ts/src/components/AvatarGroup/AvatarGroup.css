@@ -1,0 +1,14 @@
+.avatar-group {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  min-width: 40px;
+  max-width: 40px;
+  overflow: hidden;
+  border-radius: 20px;
+}
+
+.avatar-group .str-chat__avatar .str-chat__avatar-fallback,
+.avatar-group .str-chat__avatar .str-chat__avatar-image {
+  border-radius: 0;
+}
