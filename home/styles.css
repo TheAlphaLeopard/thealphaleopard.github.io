@@ -110,7 +110,7 @@ h1 {
     margin: 5px;
     border-radius: 10px;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: width 0.2s, height 0.2s, color 0.2s;
     width: 80px;
     height: 80px;
 }
