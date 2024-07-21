@@ -1,7 +1,0 @@
-{
-  "dependencies": {
-    "@talkjs/react": "^0.1.9",
-    "stream-chat": "^8.37.0",
-    "talkjs": "^0.22.0"
-  }
-}
