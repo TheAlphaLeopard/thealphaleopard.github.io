@@ -22,8 +22,11 @@ io.on('connection', (socket) => {
 
 module.exports = (req, res) => {
     if (!res.socket.server.io) {
+        console.log('Initializing new Socket.io server...');
         res.socket.server.io = io;
         io.attach(res.socket.server);
+    } else {
+        console.log('Using existing Socket.io server...');
     }
     res.end();
 }
