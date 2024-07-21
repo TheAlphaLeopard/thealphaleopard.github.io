@@ -9,7 +9,7 @@ body {
     position: relative;
     overflow: hidden;
     background-image: url("imgs/background.png");
-    background: no-repeat center;
+    background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
 }
