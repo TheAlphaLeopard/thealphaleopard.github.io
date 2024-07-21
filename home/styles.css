@@ -8,9 +8,10 @@ body {
     font-family: Arial, sans-serif;
     position: relative;
     overflow: hidden;
+    background-color: black;
     background-image: url("imgs/background.png");
     background-position: center;
-    background-size: contain;
+    background-size: cover;
     background-repeat: no-repeat;
 }
 
