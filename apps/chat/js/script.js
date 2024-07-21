@@ -1,1 +1,0 @@
-const StreamChat = require('stream-chat').StreamChat;
