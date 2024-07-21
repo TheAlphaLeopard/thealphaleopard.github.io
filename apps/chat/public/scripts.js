@@ -1,4 +1,4 @@
-const socket = io('https://your-vercel-app-url');
+const socket = io('https://my-chat-app-sable.vercel.app/');
 
 const messages = document.getElementById('messages');
 const messageInput = document.getElementById('messageInput');
