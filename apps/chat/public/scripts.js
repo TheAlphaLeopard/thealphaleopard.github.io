@@ -13,12 +13,14 @@ function appendMessage(message, isOwnMessage) {
     messageElement.textContent = message;
     messages.appendChild(messageElement);
     messages.scrollTop = messages.scrollHeight;
+    console.log('Message appended:', message);
 }
 
 sendButton.addEventListener('click', () => {
     const message = messageInput.value;
     if (message.trim() !== '') {
         appendMessage(message, true);
+        console.log('Sending message:', message);
         socket.emit('chat message', message);
         messageInput.value = '';
     }
@@ -31,5 +33,6 @@ messageInput.addEventListener('keydown', (event) => {
 });
 
 socket.on('chat message', (msg) => {
+    console.log('Message received from server:', msg);
     appendMessage(msg, false);
 });
