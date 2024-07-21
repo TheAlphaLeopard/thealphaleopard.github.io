@@ -59,15 +59,15 @@ h1 {
 
 .menu-icon {
     position: absolute;
-    top: 20px;
-    right: 20px;
+    top: 30px;
+    right: 30px;
     cursor: pointer;
     z-index: 2;
-    transition: transform 0.2s;
+    transition: transform 0.25s;
 }
 
 .menu-icon:hover {
-    transform: scale(1.1);
+    transform: scale(1.2);
 }
 
 .menu-icon:active {
