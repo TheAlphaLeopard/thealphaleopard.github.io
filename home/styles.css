@@ -17,6 +17,7 @@ body {
 
 h1 {
     -webkit-text-stroke-color: #f6ba02;
+    color: aliceblue;
     margin-bottom: 20px;
     z-index: 1;
 }
