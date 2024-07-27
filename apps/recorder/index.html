@@ -20,6 +20,16 @@
             padding: 10px 20px;
             cursor: pointer;
         }
+        #cursor {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: red;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1000;
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -27,6 +37,7 @@
         <button id="record">Record</button>
         <button id="play">Play</button>
     </div>
+    <div id="cursor"></div>
     <script src="https://unpkg.com/rrweb@latest/dist/rrweb.min.js"></script>
     <script src="rrweb-recorder.js"></script>
 </body>
