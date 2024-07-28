@@ -1,9 +1,11 @@
 let isRecording = false;
 let events = [];
 let startTime = 0;
+let playbackTimer = null;
 
 document.getElementById('record').addEventListener('click', toggleRecording);
 document.getElementById('play').addEventListener('click', playEvents);
+document.addEventListener('keypress', stopPlayback);
 
 function toggleRecording() {
     if (!isRecording) {
@@ -37,19 +39,21 @@ function recordEvent(e) {
 
 function playEvents() {
     if (events.length === 0) return;
-    const cursor = document.getElementById('cursor');
-    cursor.style.display = 'block';
-
     let startTime = Date.now();
 
     events.forEach(event => {
         setTimeout(() => {
+            if (playbackTimer === null) return; // Playback stopped
+
             if (event.type === 'mousemove') {
-                cursor.style.left = event.x + 'px';
-                cursor.style.top = event.y + 'px';
+                const simulatedEvent = new MouseEvent('mousemove', {
+                    clientX: event.x,
+                    clientY: event.y,
+                    bubbles: true,
+                    cancelable: true
+                });
+                document.dispatchEvent(simulatedEvent);
             } else if (event.type === 'click') {
-                cursor.style.left = event.x + 'px';
-                cursor.style.top = event.y + 'px';
                 const simulatedEvent = new MouseEvent('click', {
                     clientX: event.x,
                     clientY: event.y,
@@ -69,7 +73,14 @@ function playEvents() {
         }, event.time);
     });
 
-    setTimeout(() => {
-        cursor.style.display = 'none';
+    playbackTimer = setTimeout(() => {
+        playbackTimer = null;
     }, events[events.length - 1].time + 1000);
+}
+
+function stopPlayback(e) {
+    if (e.key === '1' && playbackTimer !== null) {
+        clearTimeout(playbackTimer);
+        playbackTimer = null;
+    }
 }
