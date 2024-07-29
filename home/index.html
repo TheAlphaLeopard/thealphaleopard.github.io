@@ -3,40 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TheAlphaLeopard</title>
-    <link rel="shortcut icon" type="image/x-icon" href="imgs/pounce.ico"/>
-    <link rel="stylesheet" href="css/home_loader.css">
+    <title>Home</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/home/imgs/pounce.ico"/>
+    <link rel="stylesheet" href="/home/css/home_loader.css">
 </head>
 <body>
     <div class="background-image"></div>
-    <div class="content">
-        <h1>THEALPHALEOPARD</h1>
+    <div class="center-content">
+        <img src="/home/imgs/homelogo.png" alt="Home Logo" class="home-logo">
+        <h1>THE ALPHA LEOPARD</h1>
     </div>
-    <div class="menu-icon" id="menu-icon" onclick="toggleMenu()">
-        <img src="imgs/menu.png" alt="Menu">
+    <div class="menu-icon" id="menu-icon">
+        <img src="/home/imgs/menu.png" alt="Menu Icon">
     </div>
+    <div class="overlay" id="overlay"></div>
     <div class="menu" id="menu">
         <div class="menu-content">
-            <div class="app-button" onclick="window.location.href='../apps/'">
-                <img src="imgs/openbutton.png" alt="App 2">
+            <a href="/apps/" class="app-button">
+                <img src="/home/imgs/openbutton.png" alt="Recorder">
                 <span>Apps</span>
-            </div>
-            <div class="app-button" onclick="window.location.href='../games/'">
-                <img src="imgs/openbutton.png" alt="App 3">
+            </a>
+            <a href="/games/" class="app-button">
+                <img src="/home/imgs/games.svg" alt="Another App">
                 <span>Games</span>
-            </div>
-            <div class="app-button" onclick="window.location.href='../games/'">
-                <img src="imgs/openbutton.png" alt="App 3">
-                <span>Games</span>
-            </div>
-            <div class="app-button" onclick="window.location.href='../games/'">
-                <img src="imgs/openbutton.png" alt="App 3">
-                <span>Games</span>
-            </div>
-
+            </a>
+            <a href="/home/" class="app-button">
+                <img src="/home/imgs/home.svg" alt="Home">
+                <span>Home</span>
+            </a>
+            <!-- Add more app buttons as needed -->
         </div>
     </div>
-    <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
-    <script src="script.js"></script>
+    <script src="menu.js"></script>
 </body>
 </html>
