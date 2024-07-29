@@ -60,8 +60,8 @@ body {
     width: 600px; /* Adjust width as needed */
     text-align: center;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    flex-wrap: wrap; /* Ensures items wrap within the content box */
+    justify-content: space-between; /* Ensures space between items */
 }
 
 .app-item {
@@ -74,6 +74,8 @@ body {
     border-radius: 10px;
     transition: background-color 0.2s;
     width: 120px;
+    margin: 10px;
+    flex: 1 1 calc(50% - 20px); /* Two items per row */
 }
 
 .app-item img {
@@ -89,11 +91,6 @@ body {
     margin: 10px 0 5px 0;
 }
 
-.app-item p {
-    color: white;
-    font-size: 0.8rem; /* Adjust font size as needed */
-}
-
 .app-item:hover {
     background-color: #555;
 }
@@ -104,4 +101,55 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.menu-icon {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.menu-icon:hover {
+    transform: scale(1.1);
+}
+
+.menu-icon:active {
+    transform: scale(0.9);
+}
+
+.menu-popup {
+    display: none;
+    position: absolute;
+    top: 70px;
+    right: 20px;
+    background-color: #333;
+    border: 2px solid #f6ba02;
+    border-radius: 10px;
+    padding: 10px;
+    width: 200px;
+    z-index: 2;
+    flex-direction: column;
+}
+
+.menu-popup a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+    padding: 10px;
+    transition: background-color 0.2s;
+}
+
+.menu-popup a img {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+.menu-popup a:hover {
+    background-color: #444;
 }

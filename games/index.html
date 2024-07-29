@@ -3,51 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GAMES</title> <!-- Change this to "GAMES" for games.html -->
+    <title>GAMES</title>
     <link rel="shortcut icon" type="image/x-icon" href="/home/imgs/pounce.ico"/>
     <link rel="stylesheet" href="/home/css/apps_games.css">
+    <link rel="stylesheet" href="/home/css/menu.css">
 </head>
 <body>
     <div class="background-image"></div>
     <div class="header">
-        <h1>GAMES</h1> <!-- Change this to "GAMES" for games.html -->
+        <h1>GAMES</h1>
     </div>
     <div class="content-container">
-        <h2>List of Games</h2> <!-- Change this to "List of Games" for games.html -->
+        <h2>List of Games</h2>
         <div class="content-box">
             <div class="app-item">
                 <a href="/games/minecraft/">
-                    <img src="/home/imgs/icons/alpha-craft.png" alt="App Image">
+                    <img src="/home/imgs/icons/alpha-craft.png" alt="Alpha-Craft Image">
                     <h3>Alpha-Craft</h3>
                 </a>
-                <div class="app-info">
-                    <p>Play Minecraft 1.8 and 1.5 in your browser!</p>
-                </div>
             </div>
-        </div>
-        <div class="content-box">
             <div class="app-item">
                 <a href="/games/chess/">
-                    <img src="/home/imgs/icons/chess.png" alt="App Image">
+                    <img src="/home/imgs/icons/chess.png" alt="Chess Image">
                     <h3>Chess (Local)</h3>
                 </a>
-                <div class="app-info">
-                    <p>Play Chess with your friends!</p>
-                </div>
             </div>
-        </div>
-        <div class="content-box">
             <div class="app-item">
                 <a href="/games/sm64/">
-                    <img src="/home/imgs/icons/sm64.png" alt="App Image">
+                    <img src="/home/imgs/icons/sm64.png" alt="SM64 Image">
                     <h3>Mario 64</h3>
                 </a>
-                <div class="app-info">
-                    <p>Play SM64 in your browser!</p>
-                </div>
             </div>
+            <!-- Add more app-items as needed -->
         </div>
-        <!-- Add more content-boxes as needed -->
     </div>
+
+    <div class="menu-icon" id="menu-icon">
+        <img src="/home/imgs/menu.svg" alt="Menu Icon">
+    </div>
+    <div class="menu-popup" id="menu-popup">
+        <a href="/apps/">
+            <img src="/home/imgs/openbutton.png" alt="Recorder">
+            <p>Recorder</p>
+        </a>
+        <a href="/games/">
+            <img src="/home/imgs/games.svg" alt="Another App">
+            <p>Another App</p>
+        </a>
+        <a href="/home/">
+            <img src="/home/imgs/home.svg" alt="Home">
+            <p>Home</p>
+        </a>
+        <!-- Add more menu items as needed -->
+    </div>
+
+    <script src="/home/script.js"></script>
 </body>
 </html>
