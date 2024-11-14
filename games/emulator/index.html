@@ -16,8 +16,8 @@
             font-size: 1.2em;
             padding: 10px;
             background-color: black;
-            color: yellow;
-            border: 2px solid yellow;
+            color: #f6ba02;
+            border: 2px solid #f6ba02;
             border-radius: 5px;
             cursor: pointer;
         }
@@ -25,14 +25,59 @@
         #game-list {
             margin-top: 20px;
             text-align: center;
-            color: yellow;
+            color: #f6ba02;
+        }
+
+        /* Menu overlay styling */
+        #menu, #overlay {
+            display: none;
+        }
+        
+        #menu {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 200px;
+            height: 100vh;
+            background-color: black;
+            color: #f6ba02;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 20px;
+            z-index: 1001;
+        }
+        
+        #overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+
+        .menu-item {
+            margin: 10px 0;
+            color: #f6ba02;
+            text-decoration: none;
         }
     </style>
 </head>
 <body class="dark-mode">
 
     <!-- Menu Icon -->
-    <img src="https://thealphaleopard.github.io/home/imgs/menu.png" alt="Menu Icon" class="menu-icon" />
+    <img src="https://thealphaleopard.github.io/home/imgs/menu.png" alt="Menu Icon" id="menu-icon" class="menu-icon" />
+
+    <!-- Menu and Overlay -->
+    <div id="menu">
+        <a href="#" class="menu-item">Home</a>
+        <a href="#" class="menu-item">Games</a>
+        <a href="#" class="menu-item">Emulation</a>
+        <!-- Add more menu items as needed -->
+    </div>
+    <div id="overlay"></div>
 
     <!-- Header Section -->
     <header>
@@ -64,12 +109,34 @@
         </section>
     </main>
 
-    <!-- JavaScript to handle dropdown selection -->
+    <!-- JavaScript to handle menu functionality and dropdown selection -->
     <script>
-        document.getElementById('console-select').addEventListener('change', function() {
-            const console = this.value;
-            const gameList = document.getElementById('game-list');
-            gameList.innerHTML = `<p>Games for ${console.toUpperCase()} will be displayed here soon.</p>`;
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuIcon = document.getElementById('menu-icon');
+            const menu = document.getElementById('menu');
+            const overlay = document.getElementById('overlay');
+
+            menuIcon.addEventListener('click', function() {
+                if (menu.style.display === 'none' || menu.style.display === '') {
+                    menu.style.display = 'flex';
+                    overlay.style.display = 'block';
+                } else {
+                    menu.style.display = 'none';
+                    overlay.style.display = 'none';
+                }
+            });
+
+            overlay.addEventListener('click', function() {
+                menu.style.display = 'none';
+                overlay.style.display = 'none';
+            });
+
+            // Dropdown functionality
+            document.getElementById('console-select').addEventListener('change', function() {
+                const console = this.value;
+                const gameList = document.getElementById('game-list');
+                gameList.innerHTML = `<p>Games for ${console.toUpperCase()} will be displayed here soon.</p>`;
+            });
         });
     </script>
 
