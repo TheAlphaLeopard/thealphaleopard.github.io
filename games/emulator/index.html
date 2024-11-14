@@ -4,9 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Emulation Hub</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Link to external CSS -->
+    <link rel="stylesheet" href="https://thealphaleopard.github.io/home/css/apps_games.css">
+    <style>
+        /* Centering and custom styles for dropdown */
+        .dropdown {
+            text-align: center;
+            margin: 20px auto;
+        }
+        
+        select {
+            font-size: 1.2em;
+            padding: 10px;
+            background-color: black;
+            color: yellow;
+            border: 2px solid yellow;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        #game-list {
+            margin-top: 20px;
+            text-align: center;
+            color: yellow;
+        }
+    </style>
 </head>
 <body class="dark-mode">
+
+    <!-- Menu Icon -->
+    <img src="https://thealphaleopard.github.io/home/imgs/menu.png" alt="Menu Icon" class="menu-icon" />
 
     <!-- Header Section -->
     <header>
@@ -18,9 +44,9 @@
     <!-- Main Content -->
     <main>
         <section class="content">
-            <h2>Select a Console</h2>
+            <h2 style="text-align: center; color: #f6ba02;">Select a Console</h2>
 
-            <!-- Dropdown for Console Selection -->
+            <!-- Centered Dropdown for Console Selection -->
             <div class="dropdown">
                 <select id="console-select">
                     <option value="" disabled selected>Select Console</option>
@@ -28,7 +54,6 @@
                     <option value="snes">Super Nintendo (SNES)</option>
                     <option value="gba">Game Boy Advance (GBA)</option>
                     <option value="ps1">PlayStation 1</option>
-                    <!-- Add more consoles as needed -->
                 </select>
             </div>
 
@@ -44,8 +69,6 @@
         document.getElementById('console-select').addEventListener('change', function() {
             const console = this.value;
             const gameList = document.getElementById('game-list');
-
-            // Placeholder text for when games are added
             gameList.innerHTML = `<p>Games for ${console.toUpperCase()} will be displayed here soon.</p>`;
         });
     </script>
