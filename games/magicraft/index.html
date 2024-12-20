@@ -15,6 +15,7 @@
         }
         canvas {
             border: 1px solid black;
+            cursor: crosshair;
         }
     </style>
 </head>
@@ -28,10 +29,10 @@
         const player = {
             x: canvas.width / 2,
             y: canvas.height / 2,
-            width: 20,
-            height: 20,
+            width: 30,
+            height: 30,
             color: '#f6ba02', // Signature yellow color
-            speed: 4
+            speed: 6
         };
 
         // Projectiles array
@@ -40,41 +41,54 @@
         // Key states
         const keys = {};
 
-        // Event listeners for WASD movement
+        // Cooldown control
+        let canShoot = true;
+        const shootCooldown = 500; // 500ms cooldown
+
+        // Event listeners for movement
         window.addEventListener('keydown', (e) => {
-            keys[e.key] = true;
+            keys[e.key.toLowerCase()] = true;
         });
 
         window.addEventListener('keyup', (e) => {
-            keys[e.key] = false;
+            keys[e.key.toLowerCase()] = false;
         });
 
-        // Mouse position and shooting event
+        // Mouse shooting event
         canvas.addEventListener('click', (event) => {
+            if (!canShoot) return;
+
             const rect = canvas.getBoundingClientRect();
             const mouseX = event.clientX - rect.left;
             const mouseY = event.clientY - rect.top;
 
             // Create a projectile
-            const angle = Math.atan2(mouseY - player.y, mouseX - player.x);
+            const angle = Math.atan2(mouseY - (player.y + player.height / 2), mouseX - (player.x + player.width / 2));
             projectiles.push({
-                x: player.x,
-                y: player.y,
+                x: player.x + player.width / 2,
+                y: player.y + player.height / 2,
                 radius: 5,
                 color: 'white',
-                speed: 6,
-                dx: Math.cos(angle) * 6,
-                dy: Math.sin(angle) * 6
+                speed: 8,
+                dx: Math.cos(angle) * 8,
+                dy: Math.sin(angle) * 8
             });
+
+            canShoot = false;
+            setTimeout(() => (canShoot = true), shootCooldown);
         });
 
         // Update function
         function update() {
-            // Player movement
-            if (keys['w'] && player.y > 0) player.y -= player.speed;
-            if (keys['s'] && player.y < canvas.height - player.height) player.y += player.speed;
-            if (keys['a'] && player.x > 0) player.x -= player.speed;
-            if (keys['d'] && player.x < canvas.width - player.width) player.x += player.speed;
+            // Adjust movement like Magicraft (sliding effect)
+            if (keys['w']) player.y -= player.speed;
+            if (keys['s']) player.y += player.speed;
+            if (keys['a']) player.x -= player.speed;
+            if (keys['d']) player.x += player.speed;
+
+            // Prevent player from leaving the canvas
+            player.x = Math.max(0, Math.min(canvas.width - player.width, player.x));
+            player.y = Math.max(0, Math.min(canvas.height - player.height, player.y));
 
             // Update projectiles
             for (let i = projectiles.length - 1; i >= 0; i--) {
@@ -108,6 +122,13 @@
                 ctx.fill();
                 ctx.closePath();
             });
+
+            // Draw cursor/crosshair
+            ctx.beginPath();
+            ctx.arc(canvas.width / 2, canvas.height / 2, 10, 0, Math.PI * 2);
+            ctx.strokeStyle = 'white';
+            ctx.stroke();
+            ctx.closePath();
         }
 
         // Main game loop
