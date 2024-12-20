@@ -41,10 +41,10 @@
         const player = {
             x: canvas.width / 2,
             y: canvas.height / 2,
-            width: 40,
-            height: 20,
+            width: 50,
+            height: 80,
             color: '#f6ba02', // Signature yellow color
-            speed: 4
+            speed: 3.5
         };
 
         // Projectiles array
@@ -136,7 +136,8 @@
             });
 
             // Draw cursor/crosshair
-            ctx.drawImage(crosshairImg, mouseX - crosshairImg.width / 2, mouseY - crosshairImg.height / 2);
+            const crosshairSize = 30; // Larger than the mouse
+            ctx.drawImage(crosshairImg, mouseX - crosshairSize / 2, mouseY - crosshairSize / 2, crosshairSize, crosshairSize);
         }
 
         // Main game loop
