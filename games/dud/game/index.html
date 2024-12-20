@@ -7,6 +7,24 @@
  
     <!-- Load custom style sheet -->
     <link rel="stylesheet" type="text/css" href="../theme/love.css">
+
+    <style>
+      /* Styling for error messages displayed on the page */
+      .error-display {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background-color: black;
+        color: yellow;
+        font-size: 14px;
+        padding: 10px;
+        white-space: pre-wrap;
+        overflow: auto;
+        max-height: 150px;
+        z-index: 1000;
+      }
+    </style>
   </head>
   <body>
     <center>
@@ -17,6 +35,17 @@
     </center>
  
     <script type='text/javascript'>
+      // Debugging script to display error messages on the page
+      window.addEventListener("error", (event) => {
+        const errorDisplay = document.querySelector('.error-display') || document.createElement('div');
+        if (!document.body.contains(errorDisplay)) {
+          errorDisplay.className = 'error-display';
+          document.body.appendChild(errorDisplay);
+        }
+        errorDisplay.innerText += `Error: ${event.message}\nSource: ${event.filename}\nLine: ${event.lineno}, Column: ${event.colno}\n\n`;
+        console.error(event);
+      });
+
       function goFullScreen(){
             var canvas = document.getElementById("canvas");
             if(canvas.requestFullScreen)
@@ -86,7 +115,13 @@
       };
       Module.setStatus('Downloading...');
       window.onerror = function(event) {
-        // TODO: do not warn on ok events like simulating an infinite loop or exitStatus
+        // Display uncaught error details
+        const errorDisplay = document.querySelector('.error-display') || document.createElement('div');
+        if (!document.body.contains(errorDisplay)) {
+          errorDisplay.className = 'error-display';
+          document.body.appendChild(errorDisplay);
+        }
+        errorDisplay.innerText += `Uncaught Exception: ${event.message}\nSee console for details.\n\n`;
         Module.setStatus('Exception thrown, see JavaScript console');
         Module.setStatus = function(text) {
           if (text) Module.printErr('[post-exception status] ' + text);
