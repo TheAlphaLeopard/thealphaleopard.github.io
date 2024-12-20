@@ -1,0 +1,8 @@
+{
+    "headers": {
+      "*.wasm": {
+        "Content-Type": "application/wasm"
+      }
+    }
+  }
+  
