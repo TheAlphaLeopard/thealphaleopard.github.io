@@ -15,7 +15,7 @@
         }
         canvas {
             border: 1px solid black;
-            cursor: crosshair;
+            cursor: none; /* Hide default cursor */
         }
     </style>
 </head>
@@ -25,14 +25,26 @@
         const canvas = document.getElementById('gameCanvas');
         const ctx = canvas.getContext('2d');
 
+        // Load crosshair image
+        const crosshairImg = new Image();
+        crosshairImg.src = 'imgs/crosshair.png';
+
+        let mouseX = 0;
+        let mouseY = 0;
+        canvas.addEventListener('mousemove', (event) => {
+            const rect = canvas.getBoundingClientRect();
+            mouseX = event.clientX - rect.left;
+            mouseY = event.clientY - rect.top;
+        });
+
         // Player object
         const player = {
             x: canvas.width / 2,
             y: canvas.height / 2,
-            width: 30,
-            height: 30,
+            width: 40,
+            height: 20,
             color: '#f6ba02', // Signature yellow color
-            speed: 6
+            speed: 4
         };
 
         // Projectiles array
@@ -59,11 +71,11 @@
             if (!canShoot) return;
 
             const rect = canvas.getBoundingClientRect();
-            const mouseX = event.clientX - rect.left;
-            const mouseY = event.clientY - rect.top;
+            const targetX = event.clientX - rect.left;
+            const targetY = event.clientY - rect.top;
 
             // Create a projectile
-            const angle = Math.atan2(mouseY - (player.y + player.height / 2), mouseX - (player.x + player.width / 2));
+            const angle = Math.atan2(targetY - (player.y + player.height / 2), targetX - (player.x + player.width / 2));
             projectiles.push({
                 x: player.x + player.width / 2,
                 y: player.y + player.height / 2,
@@ -124,11 +136,7 @@
             });
 
             // Draw cursor/crosshair
-            ctx.beginPath();
-            ctx.arc(canvas.width / 2, canvas.height / 2, 10, 0, Math.PI * 2);
-            ctx.strokeStyle = 'white';
-            ctx.stroke();
-            ctx.closePath();
+            ctx.drawImage(crosshairImg, mouseX - crosshairImg.width / 2, mouseY - crosshairImg.height / 2);
         }
 
         // Main game loop
