@@ -26,6 +26,35 @@
         max-height: 150px;
         z-index: 1000;
       }
+
+      /* Styling for console logs */
+      #consoleOutput {
+        position: fixed;
+        bottom: 100px;
+        left: 0;
+        width: 100%;
+        background-color: #333;
+        color: #fff;
+        font-family: monospace;
+        font-size: 14px;
+        padding: 10px;
+        overflow-y: auto;
+        max-height: 200px;
+        z-index: 1001;
+      }
+
+      #consoleOutput::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      #consoleOutput::-webkit-scrollbar-thumb {
+        background-color: #555;
+        border-radius: 4px;
+      }
+
+      #consoleOutput::-webkit-scrollbar-track {
+        background-color: #333;
+      }
     </style>
   </head>
   <body>
@@ -36,8 +65,39 @@
       </div>
     </center>
  
+    <!-- In-game error log and console output -->
+    <div id="consoleOutput"></div>
+
     <script type='text/javascript'>
-      // Debugging script to display error messages on the page
+      // Function to append messages to the in-game console output
+      function logToConsole(message, isError = false) {
+        const consoleDiv = document.getElementById('consoleOutput');
+        const logMessage = document.createElement('div');
+        logMessage.textContent = message;
+        if (isError) {
+          logMessage.style.color = 'red';
+        }
+        consoleDiv.appendChild(logMessage);
+        
+        // Keep scroll at the bottom when new messages appear
+        consoleDiv.scrollTop = consoleDiv.scrollHeight;
+      }
+
+      // Override console.log to route messages to the in-game console
+      const originalLog = console.log;
+      console.log = function(message) {
+        logToConsole(message);
+        originalLog.apply(console, arguments);
+      };
+
+      // Override console.error to route error messages to the in-game console
+      const originalError = console.error;
+      console.error = function(message) {
+        logToConsole(message, true);
+        originalError.apply(console, arguments);
+      };
+
+      // Handle window errors
       window.addEventListener("error", (event) => {
         const errorDisplay = document.querySelector('.error-display') || document.createElement('div');
         if (!document.body.contains(errorDisplay)) {
@@ -45,58 +105,57 @@
           document.body.appendChild(errorDisplay);
         }
         errorDisplay.innerText += `Error: ${event.message}\nSource: ${event.filename}\nLine: ${event.lineno}, Column: ${event.colno}\n\n`;
+        logToConsole(`Error: ${event.message}`, true);
         console.error(event);
       });
 
       function goFullScreen(){
-            var canvas = document.getElementById("canvas");
-            if(canvas.requestFullScreen)
-                canvas.requestFullScreen();
-            else if(canvas.webkitRequestFullScreen)
-                canvas.webkitRequestFullScreen();
-            else if(canvas.mozRequestFullScreen)
-                canvas.mozRequestFullScreen();
+        var canvas = document.getElementById("canvas");
+        if(canvas.requestFullScreen)
+            canvas.requestFullScreen();
+        else if(canvas.webkitRequestFullScreen)
+            canvas.webkitRequestFullScreen();
+        else if(canvas.mozRequestFullScreen)
+            canvas.mozRequestFullScreen();
       }
+
       function FullScreenHook(){
         var canvas = document.getElementById("canvas");
         canvas.width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
         canvas.height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
       }
+
       var loadingContext = document.getElementById('loadingCanvas').getContext('2d');
       function drawLoadingText(text) {
         var canvas = loadingContext.canvas;
- 
         loadingContext.fillStyle = "rgb(0, 0, 0)";
         loadingContext.fillRect(0, 0, canvas.scrollWidth, canvas.scrollHeight);
- 
+
         loadingContext.font = '2em arial';
         loadingContext.textAlign = 'center'
         loadingContext.fillStyle = "rgb( 11, 86, 117 )";
         loadingContext.fillText(text, canvas.scrollWidth / 2, canvas.scrollHeight / 2);
       }
- 
+
       window.onload = function () { window.focus(); };
       window.onclick = function () { window.focus(); };
- 
+
       window.addEventListener("keydown", function(e) {
         // space and arrow keys
         if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
           e.preventDefault();
         }
       }, false);
- 
+
       var Module = {
         arguments: ["./game.love"],
         INITIAL_MEMORY: 16777216,
         printErr: console.error.bind(console),
         canvas: (function() {
           var canvas = document.getElementById('canvas');
- 
-          // As a default initial behavior, pop up an alert when webgl context is lost. To make your
-          // application robust, you may want to override this behavior before shipping!
-          // See http://www.khronos.org/registry/webgl/specs/latest/1.0/#5.15.2
-          canvas.addEventListener("webglcontextlost", function(e) { alert('WebGL context lost. You will need to reload the page.'); e.preventDefault(); }, false);
- 
+          canvas.addEventListener("webglcontextlost", function(e) { 
+            alert('WebGL context lost. You will need to reload the page.'); e.preventDefault(); 
+          }, false);
           return canvas;
         })(),
         setStatus: function(text) {
@@ -129,7 +188,7 @@
           if (text) Module.printErr('[post-exception status] ' + text);
         };
       };
- 
+
       var applicationLoad = function(e) {
         Love(Module);
       }
