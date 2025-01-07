@@ -17,8 +17,8 @@
         bottom: 0;
         left: 0;
         width: 100%;
-        background-color: #121212;
-        color: #f6ba02;
+        background-color: #222; /* Dark background for the console */
+        color: #fff; /* White text */
         font-size: 14px;
         font-family: monospace;
         padding: 10px;
@@ -27,6 +27,15 @@
         max-height: 200px;
         z-index: 1000;
         border-top: 1px solid #f6ba02;
+      }
+
+      /* Highlighted background for console entries */
+      .console-line {
+        display: block;
+        padding: 5px;
+        margin: 2px 0;
+        background-color: #806000; /* Dark yellow highlighting */
+        border-radius: 4px; /* Rounded corners for better appearance */
       }
     </style>
   </head>
@@ -39,7 +48,7 @@
     </center>
 
     <script type='text/javascript'>
-      // Capture errors and display them directly on the page
+      // Helper function to add errors to the console display
       const displayConsoleErrors = (msg, source, lineno, colno, error) => {
         let errorDisplay = document.querySelector('.error-display');
         if (!errorDisplay) {
@@ -47,15 +56,18 @@
           errorDisplay.className = 'error-display';
           document.body.appendChild(errorDisplay);
         }
+
         const errorMsg = [
-          `Error: ${msg}`,
-          `Source: ${source || 'unknown'}`,
-          `Line: ${lineno}, Column: ${colno}`,
-          error ? `Stack: ${error.stack}` : '',
-          '\n'
-        ].join('\n');
-        errorDisplay.textContent += errorMsg;
-        console.error(msg, source, lineno, colno, error); // Also log in the developer console
+          `<span class="console-line">`,
+          `<strong>Error:</strong> ${msg}<br>`,
+          source ? `<strong>Source:</strong> ${source}<br>` : '',
+          lineno && colno ? `<strong>Location:</strong> Line ${lineno}, Column ${colno}<br>` : '',
+          error ? `<strong>Stack:</strong> ${error.stack}` : '',
+          `</span>`
+        ].join('');
+
+        errorDisplay.innerHTML += errorMsg; // Append to the error display
+        console.error(msg, source, lineno, colno, error); // Log in the developer console
       };
 
       window.addEventListener("error", (event) => {
