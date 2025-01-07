@@ -4,9 +4,9 @@
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <link rel="shortcut icon" type="image/x-icon" href="../../../home/imgs/pounce.ico"/>
-    <title>DUD - 2D Rougelike Shooter</title>
+    <title>DUD - 2D Roguelike Shooter</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, minimum-scale=1, maximum-scale=1">
- 
+
     <!-- Load custom style sheet -->
     <link rel="stylesheet" type="text/css" href="../theme/love.css">
 
@@ -17,14 +17,16 @@
         bottom: 0;
         left: 0;
         width: 100%;
-        background-color: black;
-        color: yellow;
+        background-color: #121212;
+        color: #f6ba02;
         font-size: 14px;
+        font-family: monospace;
         padding: 10px;
         white-space: pre-wrap;
         overflow: auto;
-        max-height: 150px;
+        max-height: 200px;
         z-index: 1000;
+        border-top: 1px solid #f6ba02;
       }
     </style>
   </head>
@@ -35,63 +37,80 @@
         <canvas id="canvas" oncontextmenu="event.preventDefault()"></canvas>
       </div>
     </center>
- 
+
     <script type='text/javascript'>
-      // Debugging script to display error messages on the page
-      window.addEventListener("error", (event) => {
-        const errorDisplay = document.querySelector('.error-display') || document.createElement('div');
-        if (!document.body.contains(errorDisplay)) {
+      // Capture errors and display them directly on the page
+      const displayConsoleErrors = (msg, source, lineno, colno, error) => {
+        let errorDisplay = document.querySelector('.error-display');
+        if (!errorDisplay) {
+          errorDisplay = document.createElement('div');
           errorDisplay.className = 'error-display';
           document.body.appendChild(errorDisplay);
         }
-        errorDisplay.innerText += `Error: ${event.message}\nSource: ${event.filename}\nLine: ${event.lineno}, Column: ${event.colno}\n\n`;
-        console.error(event);
+        const errorMsg = [
+          `Error: ${msg}`,
+          `Source: ${source || 'unknown'}`,
+          `Line: ${lineno}, Column: ${colno}`,
+          error ? `Stack: ${error.stack}` : '',
+          '\n'
+        ].join('\n');
+        errorDisplay.textContent += errorMsg;
+        console.error(msg, source, lineno, colno, error); // Also log in the developer console
+      };
+
+      window.addEventListener("error", (event) => {
+        displayConsoleErrors(event.message, event.filename, event.lineno, event.colno, event.error);
       });
 
+      window.addEventListener("unhandledrejection", (event) => {
+        displayConsoleErrors(`Unhandled promise rejection: ${event.reason}`, null, null, null, null);
+      });
+
+      // Fullscreen logic
       function goFullScreen(){
-        var canvas = document.getElementById("canvas");
-        if(canvas.requestFullScreen)
-            canvas.requestFullScreen();
-        else if(canvas.webkitRequestFullScreen)
-            canvas.webkitRequestFullScreen();
-        else if(canvas.mozRequestFullScreen)
-            canvas.mozRequestFullScreen();
+        const canvas = document.getElementById("canvas");
+        if (canvas.requestFullScreen) canvas.requestFullScreen();
+        else if (canvas.webkitRequestFullScreen) canvas.webkitRequestFullScreen();
+        else if (canvas.mozRequestFullScreen) canvas.mozRequestFullScreen();
       }
 
       function FullScreenHook(){
-        var canvas = document.getElementById("canvas");
+        const canvas = document.getElementById("canvas");
         canvas.width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
         canvas.height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
       }
 
-      var loadingContext = document.getElementById('loadingCanvas').getContext('2d');
+      // Loading feedback
+      const loadingContext = document.getElementById('loadingCanvas').getContext('2d');
       function drawLoadingText(text) {
-        var canvas = loadingContext.canvas;
+        const canvas = loadingContext.canvas;
         loadingContext.fillStyle = "rgb(0, 0, 0)";
         loadingContext.fillRect(0, 0, canvas.scrollWidth, canvas.scrollHeight);
-        loadingContext.font = '2em arial';
+        loadingContext.font = '2em Arial';
         loadingContext.textAlign = 'center';
-        loadingContext.fillStyle = "rgb( 11, 86, 117 )";
+        loadingContext.fillStyle = "rgb(11, 86, 117)";
         loadingContext.fillText(text, canvas.scrollWidth / 2, canvas.scrollHeight / 2);
       }
- 
+
       window.onload = function () { window.focus(); };
       window.onclick = function () { window.focus(); };
- 
+
+      // Block default behavior of space and arrow keys
       window.addEventListener("keydown", function(e) {
-        // space and arrow keys
-        if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
+        if ([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
           e.preventDefault();
         }
       }, false);
- 
+
       var Module = {
         arguments: [window.location.href + "game.love"], // Dynamically sets the path to the game.love file
         INITIAL_MEMORY: 16777216,
-        printErr: console.error.bind(console),
+        printErr: function(message) {
+          // Log errors using displayConsoleErrors
+          displayConsoleErrors(message, 'Module.printErr', null, null, null);
+        },
         canvas: (function() {
-          var canvas = document.getElementById('canvas');
-          // Pop up an alert when the WebGL context is lost. Modify if needed for your app's behavior
+          const canvas = document.getElementById('canvas');
           canvas.addEventListener("webglcontextlost", function(e) { 
             alert('WebGL context lost. You will need to reload the page.'); 
             e.preventDefault();
@@ -111,32 +130,22 @@
         monitorRunDependencies: function(left) {
           this.remainingDependencies = left;
           this.totalDependencies = Math.max(this.totalDependencies, left);
-          Module.setStatus(left ? 'Preparing... (' + (this.totalDependencies-left) + '/' + this.totalDependencies + ')' : 'All downloads complete.');
+          Module.setStatus(left ? `Preparing... (${this.totalDependencies - left}/${this.totalDependencies})` : 'All downloads complete.');
         }
       };
 
       Module.setStatus('Downloading...');
 
-      window.onerror = function(event) {
-        // Display uncaught error details on page
-        const errorDisplay = document.querySelector('.error-display') || document.createElement('div');
-        if (!document.body.contains(errorDisplay)) {
-          errorDisplay.className = 'error-display';
-          document.body.appendChild(errorDisplay);
-        }
-        errorDisplay.innerText += `Uncaught Exception: ${event.message}\nSee console for details.\n\n`;
-        Module.setStatus('Exception thrown, see JavaScript console');
-        Module.setStatus = function(text) {
-          if (text) Module.printErr('[post-exception status] ' + text);
-        };
+      window.onerror = function(msg, url, lineNo, columnNo, error) {
+        displayConsoleErrors(msg, url, lineNo, columnNo, error);
       };
 
-      var applicationLoad = function(e) {
-        Love(Module); // This function initializes the game using the love.js file
+      var applicationLoad = function() {
+        Love(Module); // Initializes the game
       }
     </script>
     
-    <!-- Include the required game script files -->
+    <!-- Include game script files -->
     <script type="text/javascript" src="game.js"></script>
     <script async type="text/javascript" src="love.js" onload="applicationLoad(this)"></script>
     
