@@ -54,14 +54,14 @@ body {
 .content-box {
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* Exactly three items per row */
-    gap: 40px; /* Increased spacing between items */
+    gap: 30px; /* Slightly reduced spacing between items */
     background-color: #333;
     border: 2px solid #f6ba02;
     border-radius: 10px;
-    padding: 20px;
+    padding: 30px; /* Slightly larger padding */
     margin: 10px;
-    width: 90%;
-    max-width: 1200px; /* Adjust to fit your layout */
+    width: 95%; /* Slightly increased width */
+    max-width: 1300px; /* Larger container */
     text-align: center;
 }
 
@@ -71,24 +71,24 @@ body {
     align-items: center;
     justify-content: center;
     background-color: #444;
-    padding: 10px;
+    padding: 15px; /* Slightly larger size */
     border-radius: 10px;
     transition: background-color 0.2s;
-    width: 100px; /* Slightly larger size */
+    width: 110px; /* Increased size */
     aspect-ratio: 1 / 1; /* Ensures square shape */
 }
 
 .app-item img {
     width: 100%;
     height: auto;
-    max-height: 70%;
+    max-height: 80%; /* Increased image height */
     border-radius: 10px;
     object-fit: cover; /* Ensures the image fits within the dimensions */
 }
 
 .app-item h3 {
     color: white;
-    font-size: 0.8rem; /* Smaller font size */
+    font-size: 0.9rem; /* Slightly larger font size */
     margin: 5px 0 5px 0;
 }
 
