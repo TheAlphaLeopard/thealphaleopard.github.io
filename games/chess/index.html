@@ -8,14 +8,22 @@
     <link rel="stylesheet" type="text/css" href="styles.css" />
 </head>
 <body>
-    <div class="chess-board" id="chess-board"></div>
     <div id="status"></div>
+    <div class="chess-board id="chess-board"></div>
+    
+    <!-- Checkmate Modal -->
     <div id="checkmate" class="hidden">
         <h1>Checkmate!</h1>
         <button id="home-btn">Home</button>
         <button id="play-again-btn">Play Again</button>
     </div>
-    <script src="js/movecheck.js"></script>
+
     <script src="js/chess.js"></script>
+    <script src="js/movecheck.js"></script>
+    <script>
+        // Ensure checkmate modal is always hidden at the start
+        const checkmateElement = document.getElementById("checkmate");
+        checkmateElement.style.display = "none"; // Inline JS to enforce the hidden state
+    </script>
 </body>
 </html>
