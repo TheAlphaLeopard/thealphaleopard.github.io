@@ -53,8 +53,8 @@ body {
 
 .content-box {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Three items per row */
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Dynamic grid with spacing */
+    gap: 30px; /* Space between items */
     background-color: #333;
     border: 2px solid #f6ba02;
     border-radius: 10px;
@@ -71,25 +71,25 @@ body {
     align-items: center;
     justify-content: center;
     background-color: #444;
-    padding: 20px;
+    padding: 10px;
     border-radius: 10px;
     transition: background-color 0.2s;
-    width: 100%;
+    width: 80px; /* Smaller size */
     aspect-ratio: 1 / 1; /* Ensures square shape */
 }
 
 .app-item img {
     width: 100%;
     height: auto;
-    max-height: 80%;
+    max-height: 70%;
     border-radius: 10px;
     object-fit: cover; /* Ensures the image fits within the dimensions */
 }
 
 .app-item h3 {
     color: white;
-    font-size: 1rem; /* Adjust font size as needed */
-    margin: 10px 0 5px 0;
+    font-size: 0.8rem; /* Smaller font size */
+    margin: 5px 0 5px 0;
 }
 
 .app-item:hover {
