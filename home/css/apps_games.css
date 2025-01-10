@@ -53,8 +53,8 @@ body {
 
 .content-box {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Dynamic grid with spacing */
-    gap: 30px; /* Space between items */
+    grid-template-columns: repeat(3, 1fr); /* Exactly three items per row */
+    gap: 40px; /* Increased spacing between items */
     background-color: #333;
     border: 2px solid #f6ba02;
     border-radius: 10px;
@@ -74,7 +74,7 @@ body {
     padding: 10px;
     border-radius: 10px;
     transition: background-color 0.2s;
-    width: 80px; /* Smaller size */
+    width: 100px; /* Slightly larger size */
     aspect-ratio: 1 / 1; /* Ensures square shape */
 }
 
