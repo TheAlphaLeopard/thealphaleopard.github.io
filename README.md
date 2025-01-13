@@ -1,3 +1,7 @@
-this is my increibly cool gamin website i made yippie!
-used with help from many people
-@binbashbanana @3kh0 thanks guys!
+this is an awesome gamin (and other cool stuff) website,
+made by me! TheAlphaLeopard (its a wip [the site i mean])
+
+<h1>Help</h1>
+@binbashbanana
+@3kh0
+@ruffle
