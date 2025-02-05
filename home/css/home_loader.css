@@ -132,11 +132,7 @@ h1 {
     align-items: center;
 }
 
-.menu-content {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-}
+
 
 .app-button {
     display: flex;
