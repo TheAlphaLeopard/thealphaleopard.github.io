@@ -91,6 +91,26 @@ h1 {
     flex-direction: column;
 }
 
+.menu-popup a {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    text-decoration: none;
+    color: white;
+}
+
+.menu-popup a img {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+    border-radius: 5px;
+}
+
+.menu-popup a p {
+    margin: 0;
+    font-size: 14px;
+}
+
 .menu {
     display: none;
     position: fixed;
