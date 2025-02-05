@@ -86,7 +86,7 @@ h1 {
     border: 2px solid #f6ba02;
     border-radius: 10px;
     padding: 10px;
-    width: 200px;
+    width: 180px;
     z-index: 1000;
     flex-direction: column;
 }
@@ -94,21 +94,21 @@ h1 {
 .menu-popup a {
     display: flex;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     text-decoration: none;
     color: white;
 }
 
 .menu-popup a img {
-    width: 30px;
-    height: 30px;
-    margin-right: 10px;
-    border-radius: 5px;
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+    border-radius: 4px;
 }
 
 .menu-popup a p {
     margin: 0;
-    font-size: 14px;
+    font-size: 12px;
 }
 
 .menu {
@@ -116,11 +116,11 @@ h1 {
     position: fixed;
     top: 20px;
     right: 20px;
-    width: 220px;
-    max-height: 80vh;
+    width: 200px;
+    max-height: 70vh;
     background-color: #333;
-    padding: 10px;
-    border-radius: 10px;
+    padding: 8px;
+    border-radius: 8px;
     z-index: 3;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
     overflow-y: auto;
@@ -143,32 +143,32 @@ h1 {
     flex-direction: column;
     align-items: center;
     background-color: #444;
-    padding: 10px;
-    margin: 5px;
-    border-radius: 10px;
+    padding: 8px;
+    margin: 4px;
+    border-radius: 8px;
     cursor: pointer;
     transition: width 0.2s, height 0.2s, color 0.2s;
-    width: 90px;
-    height: 90px;
+    width: 80px;
+    height: 80px;
 }
 
 .app-button img {
-    width: 56.25px;
-    height: 56.25px;
-    border-radius: 5px;
+    width: 48px;
+    height: 48px;
+    border-radius: 4px;
 }
 
 .app-button span {
-    margin-top: 5px;
+    margin-top: 4px;
     color: white;
-    font-size: 13.5px;
+    font-size: 12px;
     text-align: center;
 }
 
 .app-button:hover {
     background-color: #555;
-    width: 87.5px;
-    height: 87.5px;
+    width: 77px;
+    height: 77px;
 }
 
 .overlay {
