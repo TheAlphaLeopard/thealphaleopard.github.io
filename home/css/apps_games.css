@@ -136,21 +136,46 @@ body {
     flex-direction: column;
 }
 
-.menu-popup a {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    color: white;
+.menu-icon {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    cursor: pointer;
+    z-index: 2;
+    transition: transform 0.25s;
+}
+
+.menu-icon:hover {
+    transform: scale(1.2);
+}
+
+.menu-icon:active {
+    transform: scale(0.9);
+}
+
+.menu {
+    display: none;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 220px;
+    max-height: 80vh;
+    background-color: #333;
     padding: 10px;
-    transition: background-color 0.2s;
+    border-radius: 10px;
+    z-index: 3;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    overflow-y: auto;
 }
 
-.menu-popup a img {
-    width: 30px;
-    height: 30px;
-    margin-right: 10px;
+.menu.open {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.menu-popup a:hover {
-    background-color: #444;
+.menu-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
 }
