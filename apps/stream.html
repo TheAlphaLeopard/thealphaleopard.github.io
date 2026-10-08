@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>STREAM</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://api.themoviedb.org">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#000;--fg:#fff}
+*{margin:0;padding:0;box-sizing:border-box;font:700 16px/1.4 Nunito,system-ui,sans-serif;-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);color:var(--fg);min-height:100dvh;padding:clamp(10px,3vw,24px)}
+main{max-width:820px;margin:0 auto;display:grid;gap:10px}
+.hid{display:none}
+.box{border:2px solid var(--fg);padding:10px}
+.btn{background:var(--bg);color:var(--fg);border:2px solid var(--fg);font:inherit;padding:8px 12px;cursor:pointer;touch-action:manipulation}
+.btn.on{background:var(--fg);color:var(--bg)}
+.dim{opacity:.5}
+.cen{text-align:center}
+.row{display:flex;flex-wrap:wrap;gap:6px}
+.between{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap}
+#q{width:100%;background:var(--bg);color:var(--fg);border:2px solid var(--fg);font:inherit;font-size:clamp(16px,4.5vw,19px);padding:12px 14px;outline:0}
+#sug{position:relative}
+#sug .list{position:absolute;top:100%;left:0;width:100%;background:var(--bg);border:2px solid var(--fg);border-top:0;max-height:56dvh;overflow:auto;z-index:9}
+#sug .it{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:10px 14px;cursor:pointer}
+#sug .it.on{background:var(--fg);color:var(--bg)}
+#ep .btn,#srv .btn{min-width:44px}
+#v{position:relative;aspect-ratio:16/9;border:2px solid var(--fg)}
+#v iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+#msg{word-break:break-word}
+@media(hover:hover){.btn:hover,#sug .it:hover{background:var(--fg);color:var(--bg)}}
+</style>
+</head>
+<body>
+<main>
+  <div id="sug">
+    <input id="q" placeholder="search movies & tv…" autocomplete="off" autocapitalize="off" spellcheck="false" autofocus enterkeyhint="search">
+    <div class="list hid" id="list"></div>
+  </div>
+  <div class="box hid" id="info"></div>
+  <div class="box hid" id="seasons"></div>
+  <div class="box hid" id="ep"></div>
+  <div class="hid" id="watch">
+    <div class="row" id="srv" style="margin-bottom:10px"></div>
+    <div id="v"></div>
+  </div>
+  <div class="hid" id="msg"></div>
+</main>
+
+<script>
+'use strict';
+
+/* ── config ── */
+const KEY = '8871b4dba1715cd776c063a458ae8795'; // free key: themoviedb.org → Settings → API
+const API = 'https://api.themoviedb.org/3';
+const SRV = {
+  vidnest: { n:'VidNest', u:(t,i,s,e)=> t==='tv' ? `https://vidnest.fun/tv/${i}/${s}/${e}` : `https://vidnest.fun/movie/${i}` },
+  vidsrc:  { n:'VidSrc',  u:(t,i,s,e)=> t==='tv' ? `https://vidsrc.xyz/embed/tv/${i}/${s}/${e}` : `https://vidsrc.xyz/embed/movie/${i}` },
+  twoembed:{ n:'2Embed',  u:(t,i,s,e)=> t==='tv' ? `https://www.2embed.cc/embedtv/${i}&s=${s}&e=${e}` : `https://www.2embed.cc/embed/${id}` },
+  vidlink: { n:'VidLink', u:(t,i,s,e)=> t==='tv' ? `https://vidlink.pro/tv/${i}/${s}/${e}` : `https://vidlink.pro/movie/${i}` },
+};
+
+/* ── ad defense: single recursive Proxy answers window.open() checks ── */
+const stub = new Proxy(function(){}, {
+  get: (_, k) => k === 'closed' ? false : (k === Symbol.toPrimitive ? () => '' : stub),
+  apply: () => stub,
+});
+window.open = () => stub;
+new MutationObserver(ms => {
+  for (const m of ms) for (const n of m.addedNodes)
+    if (n.nodeType === 1 && n.tagName === 'IFRAME' && !n.closest('#v')) n.remove();
+}).observe(document.body, { childList: true, subtree: true });
+
+/* ── state & cache ── */
+const S = { item:null, season:1, ep:0, srv:'vidnest', sel:-1, results:[], gen:0 };
+const cache = new Map();
+
+/* ── helpers ── */
+const $ = id => document.getElementById(id);
+const el = (t, c, x) => { const n = document.createElement(t); if (c) n.className = c; if (x != null) n.textContent = x; return n; };
+const msg = (t, err) => { const m = $('msg'); if (!t) { m.className = 'hid'; return; } m.textContent = t; m.className = err ? 'cen' : 'cen dim'; };
+const closeSug = () => $('list').classList.add('hid');
+
+async function tmdb(path, qs) {
+  const k = path + JSON.stringify(qs || {});
+  if (cache.has(k)) return cache.get(k);
+  const u = new URL(API + path);
+  u.searchParams.set('api_key', KEY);
+  for (const [a, b] of Object.entries(qs || {})) u.searchParams.set(a, b);
+  const r = await fetch(u);
+  if (!r.ok) throw new Error(`TMDB ${r.status}`);
+  const d = await r.json();
+  if (cache.size > 60) cache.delete(cache.keys().next().value);
+  cache.set(k, d);
+  return d;
+}
+
+/* ── render ── */
+function showSug() {
+  const box = $('list');
+  box.replaceChildren();
+  S.results.forEach((r, i) => {
+    const it = el('div', 'it' + (i === S.sel ? ' on' : ''));
+    it.dataset.a = 'pick'; it.dataset.i = i;
+    it.append(
+      el('span', null, r.title),
+      el('span', 'dim', `${r.type === 'tv' ? 'TV' : 'Film'}${r.year ? ' · ' + r.year : ''}`)
+    );
+    box.append(it);
+  });
+  box.classList.remove('hid');
+}
+
+function showInfo(r) {
+  const head = el('div', 'between');
+  head.append(
+    el('span', null, r.title),
+    el('span', 'dim', `${r.type === 'tv' ? 'TV' : 'Film'}${r.year ? ' · ' + r.year : ''}${r.rating ? ' · ★' + r.rating : ''}`)
+  );
+  const box = $('info');
+  box.replaceChildren(head);
+  if (r.overview) box.append(el('div', 'dim', r.overview.slice(0, 260) + '…'));
+  box.classList.remove('hid');
+}
+
+function showSeasons(count) {
+  const row = el('div', 'row');
+  for (let i = 1; i <= count; i++) {
+    const b = el('button', 'btn' + (i === S.season ? ' on' : ''), 'S' + i);
+    b.dataset.a = 'season'; b.dataset.n = i;
+    row.append(b);
+  }
+  $('seasons').replaceChildren(el('span', null, 'SEASONS'), row);
+  $('seasons').classList.remove('hid');
+}
+
+function showEps(count) {
+  const head = el('div', 'between');
+  head.append(el('span', null, 'EPISODES'), el('span', 'dim', `S${S.season} · ${count} eps`));
+  const row = el('div', 'row');
+  const ns = count > 60 ? Array.from({length: count}, (_, i) => count - i) : Array.from({length: count}, (_, i) => i + 1);
+  for (const n of ns) {
+    const b = el('button', 'btn', n);
+    b.dataset.a = 'ep'; b.dataset.n = n;
+    row.append(b);
+  }
+  $('ep').replaceChildren(head, row);
+  $('ep').classList.remove('hid');
+}
+
+function showSrv() {
+  const row = $('srv');
+  row.replaceChildren();
+  for (const [k, v] of Object.entries(SRV)) {
+    const b = el('button', 'btn' + (k === S.srv ? ' on' : ''), v.n);
+    b.dataset.a = 'srv'; b.dataset.k = k;
+    row.append(b);
+  }
+}
+
+function mount() {
+  const f = document.createElement('iframe');
+  f.src = SRV[S.srv].u(S.item.type, S.item.id, S.season, S.ep);
+  f.allowFullscreen = true;
+  f.setAttribute('allow', 'autoplay; fullscreen; picture-in-picture; encrypted-media');
+  $('v').replaceChildren(f);
+  $('watch').classList.remove('hid');
+  $('watch').scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+/* ── THE FIX: hide panels, clear their dynamic CONTENT,
+   but never destroy the static container elements (#srv, #v) ── */
+function reset() {
+  for (const id of ['seasons', 'ep', 'watch']) $(id).classList.add('hid');
+  $('seasons').replaceChildren();
+  $('ep').replaceChildren();
+  $('v').replaceChildren();   // clears the iframe only
+  $('srv').replaceChildren(); // clears server buttons, div stays alive
+  msg('');
+}
+
+/* ── actions ── */
+function pick(i) {
+  const r = S.results[i];
+  if (!r) return;
+  closeSug();
+  $('q').value = r.title;
+  S.item = r; S.season = 1; S.gen++;
+  showInfo(r);
+  reset();
+  if (r.type === 'movie') { S.ep = 0; showSrv(); mount(); }
+  else loadSeason(1);
+}
+
+async function loadSeason(n) {
+  const g = ++S.gen;
+  S.season = n;
+  msg('loading…');
+  try {
+    const tv = await tmdb(`/tv/${S.item.id}`);
+    if (g !== S.gen) return;
+    showSeasons(tv.number_of_seasons || 1);
+    const sn = await tmdb(`/tv/${S.item.id}/season/${n}`);
+    if (g !== S.gen) return;
+    const c = sn.episodes?.length || 0;
+    if (!c) return msg('no episodes for this season', true);
+    showEps(c);
+    msg('');
+  } catch (e) {
+    if (g === S.gen) msg(e.message, true);
+  }
+}
+
+function play(n) { S.ep = n; showSrv(); mount(); }
+function switchSrv(k) { S.srv = k; showSrv(); mount(); }
+
+/* ── search ── */
+let deb, ac;
+ $('q').addEventListener('input', () => { clearTimeout(deb); deb = setTimeout(search, 300); });
+
+async function search() {
+  const q = $('q').value.trim();
+  if (q.length < 2) return closeSug();
+  const ck = 'q:' + q;
+  if (cache.has(ck)) { fill(cache.get(ck), q); return; }
+  ac?.abort();
+  ac = new AbortController();
+  try {
+    const u = new URL(API + '/search/multi');
+    u.searchParams.set('api_key', KEY);
+    u.searchParams.set('query', q);
+    u.searchParams.set('include_adult', 'false');
+    const r = await fetch(u, { signal: ac.signal });
+    if (!r.ok) throw new Error(`TMDB ${r.status}`);
+    const d = await r.json();
+    const out = (d.results || [])
+      .filter(x => x.media_type === 'movie' || x.media_type === 'tv')
+      .map(x => ({
+        id: x.id, type: x.media_type,
+        title: x.title || x.name || '?',
+        year: (x.release_date || x.first_air_date || '').slice(0, 4),
+        rating: x.vote_average ? x.vote_average.toFixed(1) : null,
+        overview: x.overview || '',
+      }));
+    if (cache.size > 60) cache.delete(cache.keys().next().value);
+    cache.set(ck, out);
+    fill(out, q);
+  } catch (e) {
+    if (e.name !== 'AbortError') closeSug();
+  }
+}
+
+function fill(out, q) {
+  if ($('q').value.trim() !== q) return;
+  S.results = out;
+  S.sel = -1;
+  out.length ? showSug() : closeSug();
+}
+
+/* ── keyboard nav ── */
+ $('q').addEventListener('keydown', e => {
+  const items = [...document.querySelectorAll('#list .it')];
+  if (!items.length) return;
+  if (e.key === 'ArrowDown') { e.preventDefault(); S.sel = Math.min(S.sel + 1, items.length - 1); }
+  else if (e.key === 'ArrowUp') { e.preventDefault(); S.sel = Math.max(S.sel - 1, 0); }
+  else if (e.key === 'Enter') { e.preventDefault(); pick(S.sel < 0 ? 0 : S.sel); return; }
+  else if (e.key === 'Escape') { closeSug(); return; }
+  else return;
+  items.forEach((x, i) => x.classList.toggle('on', i === S.sel));
+});
+
+/* ── one delegated click listener ── */
+document.addEventListener('click', e => {
+  if (!e.target.closest('#sug')) closeSug();
+  const t = e.target.closest('[data-a]');
+  if (!t) return;
+  const a = t.dataset.a;
+  if (a === 'pick') pick(+t.dataset.i);
+  else if (a === 'season') loadSeason(+t.dataset.n);
+  else if (a === 'ep') play(+t.dataset.n);
+  else if (a === 'srv') switchSrv(t.dataset.k);
+});
+</script>
+</body>
+</html>
