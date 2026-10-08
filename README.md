@@ -1,5 +1,6 @@
 this is an awesome gamin (and other cool stuff) website,\
 made by me! TheAlphaLeopard (its a wip [the site i mean])
+[thealphaleopard.github.io](https://thealphaleopard.github.io)
 
 <h1>Help From</h1>
 @binbashbanana, files from swfify\
