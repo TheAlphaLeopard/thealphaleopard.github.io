@@ -1,8 +1,8 @@
-const toggle = document.getElementById("light");
+const select = document.getElementById("theme");
 
-toggle.checked = localStorage.getItem("theme") === "light";
+select.value = localStorage.getItem("theme") === "light" ? "light" : "amoled";
 
-toggle.addEventListener("change", () => {
-  localStorage.setItem("theme", toggle.checked ? "light" : "dark");
-  document.documentElement.classList.toggle("light", toggle.checked);
+select.addEventListener("change", () => {
+  localStorage.setItem("theme", select.value);
+  document.documentElement.classList.toggle("light", select.value === "light");
 });

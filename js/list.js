@@ -10,6 +10,7 @@ async function loadList(jsonUrl, targetId) {
 
     const items = await res.json();
     if (!Array.isArray(items) || items.length === 0) {
+      target.className = "empty";
       target.textContent = "Nothing here yet.";
       return;
     }
@@ -35,6 +36,7 @@ async function loadList(jsonUrl, targetId) {
       target.appendChild(link);
     }
   } catch (err) {
+    target.className = "empty";
     target.textContent = "Could not load " + jsonUrl + " (" + err.message + ")";
   }
 }
