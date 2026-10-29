@@ -1,49 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>APPS</title>
-    <link rel="shortcut icon" type="image/x-icon" href="/home/imgs/pounce.ico"/>
-    <link rel="stylesheet" href="/home/css/apps_games.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Apps</title>
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/theme.js"></script>
 </head>
 <body>
-    <div class="background-image"></div>
-    <div class="header">
-        <h1>Apps</h1>
-    </div>
-    <div class="content-container">
-        <h2>List of Apps</h2>
-        <div class="content-box">
-            <div class="app-item">
-                <a href="/apps/stream.html">
-                    <img src="/home/imgs/icons/nlpe.png" alt="NLPE Uploader Icon">
-                    <h3>Stream</h3>
-                </a>
-            </div>
-            <!-- Add more app-items as needed -->
-        </div>
-    </div>
-
-    <div class="menu-icon" id="menu-icon">
-        <img src="/home/imgs/menu.png" alt="Menu Icon">
-    </div>
-    <div class="menu-popup" id="menu-popup">
-        <a href="/apps/">
-            <img src="/home/imgs/openbutton.png" alt="Recorder">
-            <p>Recorder</p>
-        </a>
-        <a href="/apps/stream.html">
-            <img src="/home/imgs/games.svg" alt="Another App">
-            <p>stream test</p>
-        </a>
-        <a href="/home/">
-            <img src="/home/imgs/home.svg" alt="Home">
-            <p>Home</p>
-        </a>
-        <!-- Add more menu items as needed -->
-    </div>
-
-    <script src="../../thealphaleopard.github.io/home/menu.js"></script>
+  <nav>
+    <a class="active" href="/apps/">Apps</a>
+    <a href="/games/">Games</a>
+    <a href="/settings/">Settings</a>
+  </nav>
+  <main>
+    <h1>Apps</h1>
+    <div id="list" class="list">Loading...</div>
+  </main>
+  <script src="/js/list.js"></script>
+  <script>loadList("/apps.json", "list");</script>
 </body>
 </html>

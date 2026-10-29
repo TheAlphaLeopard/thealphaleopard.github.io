@@ -1,0 +1,109 @@
+:root {
+  --bg: #111;
+  --fg: #eee;
+  --muted: #888;
+  --line: #333;
+  --card: #1b1b1b;
+}
+
+html.light {
+  --bg: #fff;
+  --fg: #111;
+  --muted: #666;
+  --line: #ddd;
+  --card: #f4f4f4;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+}
+
+nav {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  border-bottom: 1px solid var(--line);
+}
+
+nav a {
+  color: var(--muted);
+  text-decoration: none;
+}
+
+nav a.active {
+  color: var(--fg);
+  font-weight: 600;
+}
+
+main {
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+h1 {
+  margin-top: 0;
+}
+
+a {
+  color: inherit;
+}
+
+/* Main screen tiles */
+.tiles {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.tile {
+  padding: 1.5rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--card);
+  text-align: center;
+  text-decoration: none;
+}
+
+.tile:hover {
+  border-color: var(--fg);
+}
+
+/* apps / games lists */
+.list {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--card);
+  text-decoration: none;
+}
+
+.item:hover {
+  border-color: var(--fg);
+}
+
+.desc {
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+/* settings */
+.setting {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
