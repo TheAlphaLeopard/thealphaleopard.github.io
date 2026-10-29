@@ -1,4 +1,4 @@
-this is an awesome gamin (and other cool stuff) website, made by me! thealphaleopard
+https://thealphaleopard.github.io
 
 <h1>what this repo is</h1>
 
