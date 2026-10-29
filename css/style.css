@@ -1,13 +1,17 @@
-/* black and white only */
+/* thealphaleopard — black, white, m plus 1, lowercase, 0 radius, 0 animation */
+
 :root {
   --bg: #000;
   --fg: #fff;
-  --nav: 12rem;
+  --tile: #0a0a0a;
+  --gap: 14px;
+  --size: 150px;
 }
 
 html.white {
   --bg: #fff;
   --fg: #000;
+  --tile: #f2f2f2;
 }
 
 * {
@@ -16,15 +20,42 @@ html.white {
 
 html {
   text-transform: lowercase;
+  color-scheme: dark;
+}
+
+html.white {
+  color-scheme: light;
 }
 
 body {
   margin: 0;
+  min-height: 100vh;
   background: var(--bg);
   color: var(--fg);
   font-family: "M PLUS 1", system-ui, sans-serif;
   font-size: 14px;
-  line-height: 1.4;
+  line-height: 1.5;
+}
+
+.wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2.5rem 1.25rem 3rem;
+}
+
+header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+}
+
+h1 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
 }
 
 a {
@@ -32,13 +63,78 @@ a {
   text-decoration: none;
 }
 
+.back {
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+.back:hover {
+  opacity: 1;
+}
+
+/* square tiles: image fills the square, name is the subtext under it */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--size), 1fr));
+  gap: 1.6rem var(--gap);
+}
+
+.tile {
+  display: block;
+}
+
+.tile .thumb {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background: var(--tile);
+  outline: 1px solid transparent;
+}
+
+.tile img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.tile:hover .thumb,
+.tile:focus-visible .thumb {
+  outline-color: var(--fg);
+}
+
+.tile .name {
+  display: block;
+  margin-top: 0.45rem;
+  font-size: 12px;
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* settings */
+.row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.row .label {
+  min-width: 4.5rem;
+  font-size: 12px;
+  opacity: 0.7;
+}
+
 button {
   font: inherit;
   text-transform: inherit;
   color: var(--fg);
-  background: var(--bg);
+  background: transparent;
   border: 1px solid var(--fg);
-  padding: 0.3rem 0.6rem;
+  padding: 0.35rem 0.8rem;
   cursor: pointer;
 }
 
@@ -48,120 +144,17 @@ button.on {
   color: var(--bg);
 }
 
-/* sidebar */
-.sidebar {
-  position: fixed;
-  inset: 0 auto 0 0;
-  width: var(--nav);
-  padding: 3rem 0.6rem 0.6rem;
-  border-right: 1px solid var(--fg);
-  background: var(--bg);
-  z-index: 2;
-}
-
-html.closed .sidebar {
-  display: none;
-}
-
-.brand {
-  padding: 0 0.5rem 1.2rem;
+.empty {
   font-size: 12px;
-}
-
-.nav a {
-  display: block;
-  padding: 0.3rem 0.5rem;
-  font-size: 13px;
-}
-
-.nav a:hover,
-.nav a.on {
-  background: var(--fg);
-  color: var(--bg);
-}
-
-.toggle {
-  position: fixed;
-  top: 0.7rem;
-  left: 0.7rem;
-  z-index: 3;
-  font-family: inherit;
-  line-height: 1;
-  padding: 0.5rem 0.6rem;
-}
-
-main {
-  margin-left: var(--nav);
-  padding: 3rem 1.5rem 4rem;
-  max-width: 60rem;
-}
-
-html.closed main {
-  margin-left: 0;
-}
-
-h1 {
-  margin: 0 0 1.5rem;
-  font-size: 15px;
-  font-weight: 400;
-}
-
-/* tiles: name above, square holding the url */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
-  gap: 1.5rem 1rem;
-}
-
-.card {
-  display: block;
-}
-
-.card .name {
-  display: block;
-  margin-bottom: 0.4rem;
-  font-size: 11px;
-  letter-spacing: 0.04em;
-}
-
-.card .square {
-  display: grid;
-  place-items: center;
-  aspect-ratio: 1;
-  padding: 0.5rem;
-  border: 1px solid var(--fg);
-  text-align: center;
-  font-size: 12px;
-  word-break: break-all;
-}
-
-.card:hover .square {
-  background: var(--fg);
-  color: var(--bg);
-}
-
-.empty,
-.note {
-  font-size: 12px;
-}
-
-/* settings rows */
-.row {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 0.6rem;
-}
-
-.row .label {
-  min-width: 5rem;
-  font-size: 12px;
+  opacity: 0.7;
 }
 
 @media (max-width: 640px) {
-  main,
-  html.closed main {
-    margin-left: 0;
-    padding: 3rem 1rem 3rem;
+  :root {
+    --size: 105px;
+  }
+
+  .wrap {
+    padding: 2rem 1rem 2.5rem;
   }
 }

@@ -1,10 +1,12 @@
 [
   {
     "name": "watch",
-    "url": "/watch/"
+    "url": "/watch/",
+    "image": "/images/watch.png"
   },
   {
     "name": "nanoweb",
-    "url": "/nanoweb/"
+    "url": "/nanoweb/",
+    "image": "/images/nanoweb.png"
   }
 ]
