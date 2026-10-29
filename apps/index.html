@@ -8,26 +8,19 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+1:wght@400;500&display=swap">
   <link rel="icon" href="/images/favicon.ico">
-  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/style.css?v=3">
   <script src="/js/prefs.js"></script>
 </head>
 <body>
-  <button class="toggle" id="nav-toggle" aria-label="toggle sidebar" aria-controls="sidebar" aria-expanded="true">&lt;&lt;</button>
-  <aside class="sidebar" id="sidebar">
-    <div class="brand">thealphaleopard</div>
-    <nav class="nav">
-      <a class="on" href="/apps/">apps</a>
-      <a href="/games/">games</a>
-      <a href="/settings/">settings</a>
-    </nav>
-  </aside>
+  <div class="wrap">
+    <header>
+      <h1>apps</h1>
+      <a class="back" href="/">back</a>
+    </header>
 
-  <main>
-    <h1>apps</h1>
     <div class="grid" id="list"></div>
-  </main>
+  </div>
 
-  <script src="/js/sidebar.js"></script>
   <script src="/js/list.js"></script>
   <script>loadList("/apps.json", "list");</script>
 </body>

@@ -1,5 +1,5 @@
 /* Builds the tile grid from a json list:
-   [{ "name": "watch", "url": "/watch/" }] */
+   [{ "name": "watch", "url": "/watch/", "image": "/images/watch.png" }] */
 async function loadList(url, targetId) {
   const target = document.getElementById(targetId);
 
@@ -16,20 +16,30 @@ async function loadList(url, targetId) {
 
     target.textContent = "";
     for (const item of items) {
-      const card = document.createElement("a");
-      card.className = "card";
-      card.href = item.url;
+      const tile = document.createElement("a");
+      tile.className = "tile";
+      tile.href = item.url;
+
+      const thumb = document.createElement("span");
+      thumb.className = "thumb";
+
+      if (item.image) {
+        const img = document.createElement("img");
+        img.src = item.image;
+        img.alt = item.name || "";
+        img.loading = "lazy";
+        thumb.appendChild(img);
+      } else {
+        thumb.textContent = item.url;
+        thumb.className += " text";
+      }
 
       const name = document.createElement("span");
       name.className = "name";
       name.textContent = item.name || item.url;
 
-      const square = document.createElement("span");
-      square.className = "square";
-      square.textContent = item.url;
-
-      card.append(name, square);
-      target.appendChild(card);
+      tile.append(thumb, name);
+      target.appendChild(tile);
     }
   } catch (err) {
     target.className = "empty";
