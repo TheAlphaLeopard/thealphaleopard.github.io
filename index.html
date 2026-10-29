@@ -4,19 +4,34 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>TheAlphaLeopard</title>
-  <link rel="icon" href="/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+1:wght@400;700&family=Nunito+Sans:wght@400;600;700&display=swap">
+  <link rel="icon" href="/images/favicon.ico">
   <link rel="stylesheet" href="/css/style.css">
-  <script src="/js/theme.js"></script>
+  <script src="/js/prefs.js"></script>
 </head>
 <body>
+  <button class="nav-toggle" id="nav-toggle" aria-label="Toggle sidebar" aria-controls="sidebar" aria-expanded="true">✕</button>
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">TheAlphaLeopard</div>
+    <nav class="nav">
+      <a href="/apps/">Apps</a>
+      <a href="/games/">Games</a>
+      <a href="/settings/">Settings</a>
+    </nav>
+  </aside>
+
   <main>
     <h1>TheAlphaLeopard</h1>
-    <p class="desc">Pick a tab.</p>
+    <p class="sub">Pick a tab.</p>
     <div class="tiles">
-      <a class="tile" href="/apps/">Apps</a>
-      <a class="tile" href="/games/">Games</a>
-      <a class="tile" href="/settings/">Settings</a>
+      <a class="tile" href="/apps/">Apps <span>→</span></a>
+      <a class="tile" href="/games/">Games <span>→</span></a>
+      <a class="tile" href="/settings/">Settings <span>→</span></a>
     </div>
   </main>
+
+  <script src="/js/sidebar.js"></script>
 </body>
 </html>
