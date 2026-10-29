@@ -3,29 +3,28 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Apps</title>
+  <title>apps</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+1:wght@400;700&family=Nunito+Sans:wght@400;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+1:wght@400;500&display=swap">
   <link rel="icon" href="/images/favicon.ico">
   <link rel="stylesheet" href="/css/style.css">
   <script src="/js/prefs.js"></script>
 </head>
 <body>
-  <button class="nav-toggle" id="nav-toggle" aria-label="Toggle sidebar" aria-controls="sidebar" aria-expanded="true">✕</button>
+  <button class="toggle" id="nav-toggle" aria-label="toggle sidebar" aria-controls="sidebar" aria-expanded="true">&lt;&lt;</button>
   <aside class="sidebar" id="sidebar">
-    <div class="brand">TheAlphaLeopard</div>
+    <div class="brand">thealphaleopard</div>
     <nav class="nav">
-      <a class="active" href="/apps/">Apps</a>
-      <a href="/games/">Games</a>
-      <a href="/settings/">Settings</a>
+      <a class="on" href="/apps/">apps</a>
+      <a href="/games/">games</a>
+      <a href="/settings/">settings</a>
     </nav>
   </aside>
 
   <main>
-    <h1>Apps</h1>
-    <p class="sub">Loaded from apps.json</p>
-    <div id="list" class="list">Loading...</div>
+    <h1>apps</h1>
+    <div class="grid" id="list"></div>
   </main>
 
   <script src="/js/sidebar.js"></script>

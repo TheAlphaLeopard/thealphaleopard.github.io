@@ -3,32 +3,40 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>TheAlphaLeopard</title>
+  <title>thealphaleopard</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+1:wght@400;700&family=Nunito+Sans:wght@400;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+1:wght@400;500&display=swap">
   <link rel="icon" href="/images/favicon.ico">
   <link rel="stylesheet" href="/css/style.css">
   <script src="/js/prefs.js"></script>
 </head>
 <body>
-  <button class="nav-toggle" id="nav-toggle" aria-label="Toggle sidebar" aria-controls="sidebar" aria-expanded="true">✕</button>
+  <button class="toggle" id="nav-toggle" aria-label="toggle sidebar" aria-controls="sidebar" aria-expanded="true">&lt;&lt;</button>
   <aside class="sidebar" id="sidebar">
-    <div class="brand">TheAlphaLeopard</div>
+    <div class="brand">thealphaleopard</div>
     <nav class="nav">
-      <a href="/apps/">Apps</a>
-      <a href="/games/">Games</a>
-      <a href="/settings/">Settings</a>
+      <a href="/apps/">apps</a>
+      <a href="/games/">games</a>
+      <a href="/settings/">settings</a>
     </nav>
   </aside>
 
   <main>
-    <h1>TheAlphaLeopard</h1>
-    <p class="sub">Pick a tab.</p>
-    <div class="tiles">
-      <a class="tile" href="/apps/">Apps <span>→</span></a>
-      <a class="tile" href="/games/">Games <span>→</span></a>
-      <a class="tile" href="/settings/">Settings <span>→</span></a>
+    <h1>thealphaleopard</h1>
+    <div class="grid">
+      <a class="card" href="/apps/">
+        <span class="name">apps</span>
+        <span class="square">/apps/</span>
+      </a>
+      <a class="card" href="/games/">
+        <span class="name">games</span>
+        <span class="square">/games/</span>
+      </a>
+      <a class="card" href="/settings/">
+        <span class="name">settings</span>
+        <span class="square">/settings/</span>
+      </a>
     </div>
   </main>
 

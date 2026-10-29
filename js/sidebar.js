@@ -1,23 +1,23 @@
 const toggle = document.getElementById("nav-toggle");
 
 function sync() {
-  const closed = document.documentElement.classList.contains("nav-closed");
-  toggle.textContent = closed ? "☰" : "✕";
+  const closed = document.documentElement.classList.contains("closed");
+  toggle.textContent = closed ? ">>" : "<<";
   toggle.setAttribute("aria-expanded", String(!closed));
 }
 
-function setClosed(closed) {
-  document.documentElement.classList.toggle("nav-closed", closed);
+toggle.addEventListener("click", () => {
+  const closed = !document.documentElement.classList.contains("closed");
+  document.documentElement.classList.toggle("closed", closed);
   localStorage.setItem("sidebar", closed ? "closed" : "open");
   sync();
-}
-
-toggle.addEventListener("click", () => {
-  setClosed(!document.documentElement.classList.contains("nav-closed"));
 });
 
 document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape") setClosed(true);
+  if (e.key !== "Escape") return;
+  document.documentElement.classList.add("closed");
+  localStorage.setItem("sidebar", "closed");
+  sync();
 });
 
 sync();
