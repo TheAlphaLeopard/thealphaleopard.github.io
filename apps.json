@@ -1,12 +1,10 @@
 [
   {
-    "name": "Watch",
-    "url": "/watch/",
-    "description": "Video / stream player"
+    "name": "watch",
+    "url": "/watch/"
   },
   {
-    "name": "Nanoweb",
-    "url": "/nanoweb/",
-    "description": "Tiny web browser"
+    "name": "nanoweb",
+    "url": "/nanoweb/"
   }
 ]

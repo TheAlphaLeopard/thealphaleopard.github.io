@@ -1,254 +1,167 @@
-/* ---------- tokens ---------- */
+/* black and white only */
 :root {
-  --font-body: "Nunito Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-head: "M PLUS 1", "Nunito Sans", system-ui, sans-serif;
-
-  /* AMOLED (default) */
   --bg: #000;
-  --panel: #000;
-  --card: #0b0b0b;
-  --fg: #f2f2f2;
-  --muted: #8b8b8b;
-  --line: #1e1e1e;
-  --accent: #ffc046;
-
-  --nav-w: 15rem;
-  --radius: 10px;
+  --fg: #fff;
+  --nav: 12rem;
 }
 
-html.light {
+html.white {
   --bg: #fff;
-  --panel: #fff;
-  --card: #f6f6f6;
-  --fg: #101010;
-  --muted: #5f5f5f;
-  --line: #e3e3e3;
-  --accent: #a35b00;
+  --fg: #000;
 }
 
-/* ---------- base ---------- */
 * {
   box-sizing: border-box;
 }
 
+html {
+  text-transform: lowercase;
+}
+
 body {
   margin: 0;
-  font-family: var(--font-body);
   background: var(--bg);
   color: var(--fg);
-  line-height: 1.55;
-  -webkit-font-smoothing: antialiased;
-}
-
-h1,
-h2,
-h3,
-.brand,
-.nav a,
-.tile {
-  font-family: var(--font-head);
-}
-
-h1 {
-  font-size: 1.6rem;
-  margin: 0 0 1.5rem;
+  font-family: "M PLUS 1", system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 1.4;
 }
 
 a {
-  color: inherit;
+  color: var(--fg);
+  text-decoration: none;
 }
 
-:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
+button {
+  font: inherit;
+  text-transform: inherit;
+  color: var(--fg);
+  background: var(--bg);
+  border: 1px solid var(--fg);
+  padding: 0.3rem 0.6rem;
+  cursor: pointer;
 }
 
-/* ---------- sidebar ---------- */
+button:hover,
+button.on {
+  background: var(--fg);
+  color: var(--bg);
+}
+
+/* sidebar */
 .sidebar {
   position: fixed;
   inset: 0 auto 0 0;
-  width: var(--nav-w);
-  padding: 3.5rem 0.75rem 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  background: var(--panel);
-  border-right: 1px solid var(--line);
-  transition: transform 0.2s ease;
-  z-index: 10;
+  width: var(--nav);
+  padding: 3rem 0.6rem 0.6rem;
+  border-right: 1px solid var(--fg);
+  background: var(--bg);
+  z-index: 2;
 }
 
-html.nav-closed .sidebar {
-  transform: translateX(-100%);
+html.closed .sidebar {
+  display: none;
 }
 
 .brand {
-  padding: 0 0.75rem;
-  margin-bottom: 1rem;
-  font-size: 0.95rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
+  padding: 0 0.5rem 1.2rem;
+  font-size: 12px;
 }
 
 .nav a {
   display: block;
-  padding: 0.6rem 0.75rem;
-  border-radius: 8px;
-  color: var(--muted);
-  text-decoration: none;
-  font-size: 0.95rem;
-  transition: background 0.15s ease, color 0.15s ease;
+  padding: 0.3rem 0.5rem;
+  font-size: 13px;
 }
 
-.nav a:hover {
-  background: var(--card);
-  color: var(--fg);
+.nav a:hover,
+.nav a.on {
+  background: var(--fg);
+  color: var(--bg);
 }
 
-.nav a.active {
-  background: var(--card);
-  color: var(--fg);
-  box-shadow: inset 3px 0 0 var(--accent);
-}
-
-.nav-toggle {
+.toggle {
   position: fixed;
-  top: 0.6rem;
-  left: 0.6rem;
-  width: 2.3rem;
-  height: 2.3rem;
-  display: grid;
-  place-items: center;
-  padding: 0;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--card);
-  color: var(--fg);
-  font-size: 1rem;
-  cursor: pointer;
-  transition: border-color 0.15s ease;
-  z-index: 11;
+  top: 0.7rem;
+  left: 0.7rem;
+  z-index: 3;
+  font-family: inherit;
+  line-height: 1;
+  padding: 0.5rem 0.6rem;
 }
 
-.nav-toggle:hover {
-  border-color: var(--accent);
-}
-
-/* ---------- page ---------- */
 main {
-  max-width: 44rem;
-  margin-left: var(--nav-w);
-  padding: 3.5rem 1.5rem 4rem;
-  transition: margin 0.2s ease;
+  margin-left: var(--nav);
+  padding: 3rem 1.5rem 4rem;
+  max-width: 60rem;
 }
 
-html.nav-closed main {
+html.closed main {
   margin-left: 0;
 }
 
-.sub {
-  margin: -1rem 0 1.75rem;
-  color: var(--muted);
-  font-size: 0.9rem;
+h1 {
+  margin: 0 0 1.5rem;
+  font-size: 15px;
+  font-weight: 400;
 }
 
-/* main screen tiles */
-.tiles {
+/* tiles: name above, square holding the url */
+.grid {
   display: grid;
-  gap: 0.75rem;
-  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
+  gap: 1.5rem 1rem;
 }
 
-.tile {
+.card {
+  display: block;
+}
+
+.card .name {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+}
+
+.card .square {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  padding: 0.5rem;
+  border: 1px solid var(--fg);
+  text-align: center;
+  font-size: 12px;
+  word-break: break-all;
+}
+
+.card:hover .square {
+  background: var(--fg);
+  color: var(--bg);
+}
+
+.empty,
+.note {
+  font-size: 12px;
+}
+
+/* settings rows */
+.row {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 0.5rem;
-  padding: 1.5rem 1.25rem;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: var(--card);
-  text-decoration: none;
-  transition: border-color 0.15s ease, transform 0.15s ease;
+  margin-bottom: 0.6rem;
 }
 
-.tile:hover {
-  border-color: var(--accent);
-  transform: translateY(-2px);
+.row .label {
+  min-width: 5rem;
+  font-size: 12px;
 }
 
-.tile span {
-  color: var(--muted);
-}
-
-/* apps / games lists */
-.list {
-  display: grid;
-  gap: 0.5rem;
-}
-
-.item {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 0.9rem 1.1rem;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: var(--card);
-  text-decoration: none;
-  transition: border-color 0.15s ease;
-}
-
-.item:hover {
-  border-color: var(--accent);
-}
-
-.item .name {
-  font-weight: 600;
-}
-
-.item .desc {
-  color: var(--muted);
-  font-size: 0.85rem;
-  text-align: right;
-}
-
-/* settings */
-.setting {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 0.9rem 1.1rem;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: var(--card);
-}
-
-.setting select {
-  padding: 0.4rem 0.6rem;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--bg);
-  color: var(--fg);
-  font: inherit;
-}
-
-.empty {
-  color: var(--muted);
-  font-size: 0.9rem;
-}
-
-/* ---------- narrow screens ---------- */
-@media (max-width: 700px) {
+@media (max-width: 640px) {
   main,
-  html.nav-closed main {
+  html.closed main {
     margin-left: 0;
-    padding: 3.5rem 1rem 3rem;
-  }
-
-  .sidebar {
-    width: 14rem;
+    padding: 3rem 1rem 3rem;
   }
 }

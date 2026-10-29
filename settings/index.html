@@ -3,35 +3,32 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Settings</title>
+  <title>settings</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+1:wght@400;700&family=Nunito+Sans:wght@400;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+1:wght@400;500&display=swap">
   <link rel="icon" href="/images/favicon.ico">
   <link rel="stylesheet" href="/css/style.css">
   <script src="/js/prefs.js"></script>
 </head>
 <body>
-  <button class="nav-toggle" id="nav-toggle" aria-label="Toggle sidebar" aria-controls="sidebar" aria-expanded="true">✕</button>
+  <button class="toggle" id="nav-toggle" aria-label="toggle sidebar" aria-controls="sidebar" aria-expanded="true">&lt;&lt;</button>
   <aside class="sidebar" id="sidebar">
-    <div class="brand">TheAlphaLeopard</div>
+    <div class="brand">thealphaleopard</div>
     <nav class="nav">
-      <a href="/apps/">Apps</a>
-      <a href="/games/">Games</a>
-      <a class="active" href="/settings/">Settings</a>
+      <a href="/apps/">apps</a>
+      <a href="/games/">games</a>
+      <a class="on" href="/settings/">settings</a>
     </nav>
   </aside>
 
   <main>
-    <h1>Settings</h1>
-    <p class="sub">Saved on this device</p>
-    <label class="setting">
-      Theme
-      <select id="theme">
-        <option value="amoled">AMOLED</option>
-        <option value="light">Light</option>
-      </select>
-    </label>
+    <h1>settings</h1>
+    <div class="row">
+      <span class="label">theme</span>
+      <button class="opt" data-theme="black">black</button>
+      <button class="opt" data-theme="white">white</button>
+    </div>
   </main>
 
   <script src="/js/sidebar.js"></script>

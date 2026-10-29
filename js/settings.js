@@ -1,8 +1,18 @@
-const select = document.getElementById("theme");
+const buttons = document.querySelectorAll(".opt");
 
-select.value = localStorage.getItem("theme") === "light" ? "light" : "amoled";
+function mark(theme) {
+  for (const b of buttons) {
+    b.classList.toggle("on", b.dataset.theme === theme);
+  }
+}
 
-select.addEventListener("change", () => {
-  localStorage.setItem("theme", select.value);
-  document.documentElement.classList.toggle("light", select.value === "light");
-});
+mark(localStorage.getItem("theme") === "white" ? "white" : "black");
+
+for (const b of buttons) {
+  b.addEventListener("click", () => {
+    const theme = b.dataset.theme;
+    localStorage.setItem("theme", theme);
+    document.documentElement.classList.toggle("white", theme === "white");
+    mark(theme);
+  });
+}
