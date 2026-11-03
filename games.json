@@ -12,12 +12,12 @@
   {
     "name": "stick fighter",
     "url": "/stickfighter-rip/",
-    "image": "/images/megamix.png"
+    "image": "/images/stickfighter-rip.avif"
   },
   {
     "name": "poly track",
     "url": "/pt/",
-    "image": "/images/megamix.png"
+    "image": "/images/pt.png"
   },
   {
     "name": "rounds",
@@ -32,7 +32,7 @@
   {
     "name": "horsey game",
     "url": "/horsey/",
-    "image": "/images/megamix.png"
+    "image": "/images/horsey.webp"
   }
   
 ]
