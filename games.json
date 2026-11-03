@@ -4,4 +4,14 @@
     "url": "/megamix/",
     "image": "/images/megamix.png"
   }
+    {
+    "name": "madness melee",
+    "url": "/mm/",
+    "image": "/images/megamix.png"
+  }
+    {
+    "name": "stick fighter",
+    "url": "/stickfighter-rip/",
+    "image": "/images/megamix.png"
+  }
 ]
