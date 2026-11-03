@@ -28,6 +28,11 @@
     "name": "fara",
     "url": "/fara/",
     "image": "/images/megamix.png"
+  },
+  {
+    "name": "horsey game",
+    "url": "/horsey/",
+    "image": "/images/megamix.png"
   }
   
 ]
